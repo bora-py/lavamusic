@@ -19,7 +19,7 @@ import config from "../config";
 import ServerData from "../database/server";
 import { env } from "../env";
 import loadPlugins from "../plugin/index";
-import { Utils } from "../utils/Utils";
+import * as Utils from "../utils/Utils";
 import { T, i18n, initI18n, localization } from "./I18n";
 import type { Command } from "./index";
 import LavalinkClient from "./LavalinkClient";
