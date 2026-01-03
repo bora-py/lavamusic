@@ -23,7 +23,7 @@ export default class SetupButtons extends Event {
 		if (!interaction.member.voice.channel) {
 			return await buttonReply(
 				interaction,
-				t(I18N.events.setupButton.no_voice_channel_button, { lng: locale }),
+				t(I18N.events.setupButton.no_voice_channel_button),
 				this.client.color.red,
 			);
 		}
@@ -45,19 +45,19 @@ export default class SetupButtons extends Event {
 		if (!player)
 			return await buttonReply(
 				interaction,
-				t(I18N.events.setupButton.no_music_playing, { lng: locale }),
+				t(I18N.events.setupButton.no_music_playing),
 				this.client.color.red,
 			);
 		if (!player.queue)
 			return await buttonReply(
 				interaction,
-				t(I18N.events.setupButton.no_music_playing, { lng: locale }),
+				t(I18N.events.setupButton.no_music_playing),
 				this.client.color.red,
 			);
 		if (!player.queue.current)
 			return await buttonReply(
 				interaction,
-				t(I18N.events.setupButton.no_music_playing, { lng: locale }),
+				t(I18N.events.setupButton.no_music_playing),
 				this.client.color.red,
 			);
 		const data = await this.client.db.getSetup(interaction.guildId);
@@ -77,12 +77,12 @@ export default class SetupButtons extends Event {
 		const embed = this.client
 			.embed()
 			.setAuthor({
-				name: t(I18N.events.setupButton.now_playing, { lng: locale }),
+				name: t(I18N.events.setupButton.now_playing),
 				iconURL: iconUrl,
 			})
 			.setColor(this.client.color.main)
 			.setDescription(
-				`[${title}](${uri}) - ${isStream ? t(I18N.events.setupButton.live, { lng: locale }) : this.client.utils.formatTime(duration)} - ${t(I18N.events.setupButton.requested_by, { lng: locale, requester: (player.queue.current.requester as Requester).id })}`,
+				`[${title}](${uri}) - ${isStream ? t(I18N.events.setupButton.live) : this.client.utils.formatTime(duration)} - ${t(I18N.events.setupButton.requested_by, { lng: locale, requester: (player.queue.current.requester as Requester).id })}`,
 			)
 			.setImage((artworkUrl || this.client.user?.displayAvatarURL({ extension: "png" })) ?? "");
 
@@ -90,7 +90,7 @@ export default class SetupButtons extends Event {
 		if (!(await checkDj(this.client, interaction))) {
 			return await buttonReply(
 				interaction,
-				t(I18N.events.setupButton.no_dj_permission, { lng: locale }),
+				t(I18N.events.setupButton.no_dj_permission),
 				this.client.color.red,
 			);
 		}
@@ -121,7 +121,7 @@ export default class SetupButtons extends Event {
 					if (!player.queue.previous) {
 						return await buttonReply(
 							interaction,
-							t(I18N.events.setupButton.no_previous_track, { lng: locale }),
+							t(I18N.events.setupButton.no_previous_track),
 							this.client.color.main,
 						);
 					}
@@ -130,7 +130,7 @@ export default class SetupButtons extends Event {
 					});
 					await buttonReply(
 						interaction,
-						t(I18N.events.setupButton.playing_previous, { lng: locale }),
+						t(I18N.events.setupButton.playing_previous),
 						this.client.color.main,
 					);
 					await message.edit({
@@ -155,7 +155,7 @@ export default class SetupButtons extends Event {
 					}
 					await buttonReply(
 						interaction,
-						t(I18N.events.setupButton.rewinded, { lng: locale }),
+						t(I18N.events.setupButton.rewinded),
 						this.client.color.main,
 					);
 					await message.edit({
@@ -173,8 +173,8 @@ export default class SetupButtons extends Event {
 				}
 				case "PAUSE_BUT": {
 					const name = player.paused
-						? t(I18N.events.setupButton.resumed, { lng: locale })
-						: t(I18N.events.setupButton.paused, { lng: locale });
+						? t(I18N.events.setupButton.resumed)
+						: t(I18N.events.setupButton.paused);
 					if (player.paused) {
 						player.resume();
 					} else {
@@ -205,14 +205,14 @@ export default class SetupButtons extends Event {
 					if (time > player.queue.current.info.duration) {
 						return await buttonReply(
 							interaction,
-							t(I18N.events.setupButton.forward_limit, { lng: locale }),
+							t(I18N.events.setupButton.forward_limit),
 							this.client.color.main,
 						);
 					}
 					player.seek(time);
 					await buttonReply(
 						interaction,
-						t(I18N.events.setupButton.forwarded, { lng: locale }),
+						t(I18N.events.setupButton.forwarded),
 						this.client.color.main,
 					);
 					await message.edit({
@@ -232,7 +232,7 @@ export default class SetupButtons extends Event {
 					if (player.queue.tracks.length === 0) {
 						return await buttonReply(
 							interaction,
-							t(I18N.events.setupButton.no_music_to_skip, { lng: locale }),
+							t(I18N.events.setupButton.no_music_to_skip),
 							this.client.color.main,
 						);
 					}
@@ -240,7 +240,7 @@ export default class SetupButtons extends Event {
 					player.skip();
 					await buttonReply(
 						interaction,
-						t(I18N.events.setupButton.skipped, { lng: locale }),
+						t(I18N.events.setupButton.skipped),
 						this.client.color.main,
 					);
 
@@ -248,14 +248,14 @@ export default class SetupButtons extends Event {
 					const newEmbed = this.client
 						.embed()
 						.setAuthor({
-							name: t(I18N.events.setupButton.now_playing, { lng: locale }),
+							name: t(I18N.events.setupButton.now_playing),
 							iconURL:
 								this.client.config.icons[newTrack?.sourceName || ""] ||
 								this.client.user?.displayAvatarURL({ extension: "png" }),
 						})
 						.setColor(this.client.color.main)
 						.setDescription(
-							`[${newTrack?.title}](${newTrack?.uri}) - ${newTrack?.isStream ? t(I18N.events.setupButton.live, { lng: locale }) : this.client.utils.formatTime(newTrack?.duration)} - ${t(I18N.events.setupButton.requested_by, { lng: locale, requester: (player.queue.current?.requester as Requester).id })}`,
+							`[${newTrack?.title}](${newTrack?.uri}) - ${newTrack?.isStream ? t(I18N.events.setupButton.live) : this.client.utils.formatTime(newTrack?.duration)} - ${t(I18N.events.setupButton.requested_by, { lng: locale, requester: (player.queue.current?.requester as Requester).id })}`,
 						)
 						.setImage(
 							(newTrack?.artworkUrl || this.client.user?.displayAvatarURL({ extension: "png" })) ??
@@ -304,7 +304,7 @@ export default class SetupButtons extends Event {
 					player.stopPlaying(true, false);
 					await buttonReply(
 						interaction,
-						t(I18N.events.setupButton.stopped, { lng: locale }),
+						t(I18N.events.setupButton.stopped),
 						this.client.color.main,
 					);
 					await message.edit({
@@ -317,7 +317,7 @@ export default class SetupButtons extends Event {
 									}),
 									iconURL: interaction.member.displayAvatarURL({}),
 								})
-								.setDescription(t(I18N.events.setupButton.nothing_playing, { lng: locale }))
+								.setDescription(t(I18N.events.setupButton.nothing_playing))
 								.setImage(this.client.config.links.img)
 								.setAuthor({
 									name: this.client.user?.username ?? "",
@@ -334,7 +334,7 @@ export default class SetupButtons extends Event {
 					player.queue.shuffle();
 					await buttonReply(
 						interaction,
-						t(I18N.events.setupButton.shuffled, { lng: locale }),
+						t(I18N.events.setupButton.shuffled),
 						this.client.color.main,
 					);
 					break;

@@ -1,8 +1,7 @@
-/** biome-ignore-all lint/style/useTemplate: explanation */
-
 import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import logger from "../../structures/Logger";
+import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
 
 export default class MoveNode extends Command {
 	constructor(client: Lavamusic) {
@@ -26,7 +25,7 @@ export default class MoveNode extends Command {
 			},
 			permissions: {
 				dev: true,
-				client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+				client: [SendMessages, ReadMessageHistory, ViewChannel, EmbedLinks],
 				user: [],
 			},
 			slashCommand: true,
@@ -192,18 +191,17 @@ export default class MoveNode extends Command {
 
 			let description = "";
 			if (successMoves.length > 0) {
-				description +=
-					ctx.locale(I18N.commands.movenode.messages.moved_players, {
-						list: successMoves
-							.map((r) =>
-								ctx.locale(I18N.commands.movenode.messages.guild_move, {
-									guildId: r.guildId,
-									from: r.from,
-									to: r.to,
-								}),
-							)
-							.join("\n"),
-					}) + "\n";
+				description += `${ctx.locale(I18N.commands.movenode.messages.moved_players, {
+					list: successMoves
+						.map((r) =>
+							ctx.locale(I18N.commands.movenode.messages.guild_move, {
+								guildId: r.guildId,
+								from: r.from,
+								to: r.to,
+							}),
+						)
+						.join("\n"),
+				})}\n`;
 			}
 			if (failedMoves.length > 0) {
 				description +=

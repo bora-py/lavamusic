@@ -4,6 +4,7 @@ import { fetch } from "undici";
 import { env } from "../../env";
 import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
+import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
 
 export default class Eval extends Command {
 	constructor(client: Lavamusic) {
@@ -26,7 +27,7 @@ export default class Eval extends Command {
 			},
 			permissions: {
 				dev: true,
-				client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+				client: [SendMessages, ReadMessageHistory, ViewChannel, EmbedLinks],
 				user: [],
 			},
 			slashCommand: false,

@@ -12,6 +12,13 @@ import type { LyricsLine, LyricsResult } from "lavalink-client";
 import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import logger from "../../structures/Logger";
+import {
+	AttachFiles,
+	EmbedLinks,
+	ReadMessageHistory,
+	SendMessages,
+	ViewChannel,
+} from "../../utils/Permissions";
 
 export default class Lyrics extends Command {
 	constructor(client: Lavamusic) {
@@ -35,14 +42,14 @@ export default class Lyrics extends Command {
 			},
 			permissions: {
 				dev: false,
-				client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks", "AttachFiles"],
+				client: [SendMessages, ReadMessageHistory, ViewChannel, EmbedLinks, AttachFiles],
 				user: [],
 			},
 			slashCommand: true,
 			options: [
 				{
 					name: "song",
-					description: I18N.commands.lyrics.options.song.description,
+					description: I18N.commands.lyrics.options.song,
 					type: 3,
 					required: false,
 				},

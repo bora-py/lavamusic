@@ -3,6 +3,14 @@ import { ChannelType, OverwriteType, PermissionFlagsBits } from "discord.js";
 import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import { getButtons } from "../../utils/Buttons";
+import {
+	EmbedLinks,
+	ManageChannels,
+	ManageGuild,
+	ReadMessageHistory,
+	SendMessages,
+	ViewChannel,
+} from "../../utils/Permissions";
 
 export default class Setup extends Command {
 	constructor(client: Lavamusic) {
@@ -26,14 +34,8 @@ export default class Setup extends Command {
 			},
 			permissions: {
 				dev: false,
-				client: [
-					"SendMessages",
-					"ReadMessageHistory",
-					"ViewChannel",
-					"EmbedLinks",
-					"ManageChannels",
-				],
-				user: ["ManageGuild"],
+				client: [SendMessages, ReadMessageHistory, ViewChannel, EmbedLinks, ManageChannels],
+				user: [ManageGuild],
 			},
 			slashCommand: true,
 			options: [

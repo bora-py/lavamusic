@@ -49,7 +49,7 @@ export default class TrackStart extends Event {
 		const embed = this.client
 			.embed()
 			.setAuthor({
-				name: t(I18N.player.trackStart.now_playing, { lng: locale }),
+				name: t(I18N.player.trackStart.now_playing),
 				iconURL:
 					this.client.config.icons[track.info.sourceName] ??
 					this.client.user?.displayAvatarURL({ extension: "png" }),
@@ -58,7 +58,6 @@ export default class TrackStart extends Event {
 			.setDescription(`**[${track.info.title}](${track.info.uri})**`)
 			.setFooter({
 				text: t(I18N.player.trackStart.requested_by, {
-					lng: locale,
 					user: (track.requester as Requester).username,
 				}),
 				iconURL: (track.requester as Requester).avatarURL,
@@ -66,12 +65,12 @@ export default class TrackStart extends Event {
 			.setThumbnail(track.info.artworkUrl)
 			.addFields(
 				{
-					name: t(I18N.player.trackStart.duration, { lng: locale }),
+					name: t(I18N.player.trackStart.duration),
 					value: track.info.isStream ? "LIVE" : this.client.utils.formatTime(track.info.duration),
 					inline: true,
 				},
 				{
-					name: t(I18N.player.trackStart.author, { lng: locale }),
+					name: t(I18N.player.trackStart.author),
 					value: track.info.author,
 					inline: true,
 				},
@@ -92,7 +91,7 @@ export default class TrackStart extends Event {
 			});
 
 			player.set("messageId", message.id);
-			createCollector(message, player, track, embed, this.client, locale);
+			createCollector(message, player, track, embed, this.client);
 		}
 	}
 }
@@ -140,7 +139,6 @@ function createCollector(
 	_track: Track,
 	embed: any,
 	client: Lavamusic,
-	locale: string,
 ): void {
 	const collector = message.createMessageComponentCollector({
 		filter: async (b: ButtonInteraction) => {
@@ -151,7 +149,6 @@ function createCollector(
 			}
 			await b.reply({
 				content: t(I18N.player.trackStart.not_connected_to_voice_channel, {
-					lng: locale,
 					channel: b.guild?.members.me?.voice.channelId ?? "None",
 				}),
 				flags: MessageFlags.Ephemeral,
@@ -163,7 +160,7 @@ function createCollector(
 	collector.on("collect", async (interaction: ButtonInteraction<"cached">) => {
 		if (!(await checkDj(client, interaction))) {
 			await interaction.reply({
-				content: t(I18N.player.trackStart.need_dj_role, { lng: locale }),
+				content: t(I18N.player.trackStart.need_dj_role),
 				flags: MessageFlags.Ephemeral,
 			});
 			return;
@@ -190,12 +187,10 @@ function createCollector(
 					player.play({
 						track: previousTrack,
 					});
-					await editMessage(
-						t(I18N.player.trackStart.previous_by, { lng: locale, user: interaction.user.tag }),
-					);
+					await editMessage(t(I18N.player.trackStart.previous_by, { user: interaction.user.tag }));
 				} else {
 					await interaction.reply({
-						content: t(I18N.player.trackStart.no_previous_song, { lng: locale }),
+						content: t(I18N.player.trackStart.no_previous_song),
 						flags: MessageFlags.Ephemeral,
 					});
 				}
@@ -204,15 +199,11 @@ function createCollector(
 				if (player.paused) {
 					player.resume();
 					await interaction.deferUpdate();
-					await editMessage(
-						t(I18N.player.trackStart.resumed_by, { lng: locale, user: interaction.user.tag }),
-					);
+					await editMessage(t(I18N.player.trackStart.resumed_by, { user: interaction.user.tag }));
 				} else {
 					player.pause();
 					await interaction.deferUpdate();
-					await editMessage(
-						t(I18N.player.trackStart.paused_by, { lng: locale, user: interaction.user.tag }),
-					);
+					await editMessage(t(I18N.player.trackStart.paused_by, { user: interaction.user.tag }));
 				}
 				break;
 			case "stop": {
@@ -224,12 +215,10 @@ function createCollector(
 				if (player.queue.tracks.length > 0) {
 					await interaction.deferUpdate();
 					player.skip();
-					await editMessage(
-						t(I18N.player.trackStart.skipped_by, { lng: locale, user: interaction.user.tag }),
-					);
+					await editMessage(t(I18N.player.trackStart.skipped_by, { user: interaction.user.tag }));
 				} else {
 					await interaction.reply({
-						content: t(I18N.player.trackStart.no_more_songs_in_queue, { lng: locale }),
+						content: t(I18N.player.trackStart.no_more_songs_in_queue),
 						flags: MessageFlags.Ephemeral,
 					});
 				}
@@ -239,25 +228,20 @@ function createCollector(
 				switch (player.repeatMode) {
 					case "off": {
 						player.setRepeatMode("track");
-						await editMessage(
-							t(I18N.player.trackStart.looping_by, { lng: locale, user: interaction.user.tag }),
-						);
+						await editMessage(t(I18N.player.trackStart.looping_by, { user: interaction.user.tag }));
 						break;
 					}
 					case "track": {
 						player.setRepeatMode("queue");
 						await editMessage(
-							t(I18N.player.trackStart.looping_queue_by, {
-								lng: locale,
-								user: interaction.user.tag,
-							}),
+							t(I18N.player.trackStart.looping_queue_by, { user: interaction.user.tag }),
 						);
 						break;
 					}
 					case "queue": {
 						player.setRepeatMode("off");
 						await editMessage(
-							t(I18N.player.trackStart.looping_off_by, { lng: locale, user: interaction.user.tag }),
+							t(I18N.player.trackStart.looping_off_by, { user: interaction.user.tag }),
 						);
 						break;
 					}

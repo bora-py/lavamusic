@@ -2,6 +2,14 @@ import { ApplicationCommandOptionType, type Attachment, type GuildMember } from 
 import type { SearchResult } from "lavalink-client";
 import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
+import {
+	Connect,
+	EmbedLinks,
+	ReadMessageHistory,
+	SendMessages,
+	Speak,
+	ViewChannel,
+} from "../../utils/Permissions";
 
 export default class PlayLocal extends Command {
 	constructor(client: Lavamusic) {
@@ -25,14 +33,7 @@ export default class PlayLocal extends Command {
 			},
 			permissions: {
 				dev: false,
-				client: [
-					"SendMessages",
-					"ReadMessageHistory",
-					"ViewChannel",
-					"EmbedLinks",
-					"Connect",
-					"Speak",
-				],
+				client: [SendMessages, ReadMessageHistory, ViewChannel, EmbedLinks, Connect, Speak],
 				user: [],
 			},
 			slashCommand: true,

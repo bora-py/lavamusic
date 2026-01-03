@@ -12,6 +12,13 @@ import {
 import type { SearchResult, Track } from "lavalink-client";
 import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
+import {
+	AttachFiles,
+	EmbedLinks,
+	ReadMessageHistory,
+	SendMessages,
+	ViewChannel,
+} from "../../utils/Permissions";
 
 const TRACKS_PER_PAGE = 5;
 
@@ -37,7 +44,7 @@ export default class Search extends Command {
 			},
 			permissions: {
 				dev: false,
-				client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks", "AttachFiles"],
+				client: [SendMessages, ReadMessageHistory, ViewChannel, EmbedLinks, AttachFiles],
 				user: [],
 			},
 			slashCommand: true,

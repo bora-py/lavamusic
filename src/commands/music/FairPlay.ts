@@ -1,6 +1,7 @@
 import { I18N } from "../../structures/I18n";
 import { Command, type Lavamusic } from "../../structures/index";
 import { applyFairPlayToQueue } from "../../utils/functions/player";
+import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
 
 export default class FairPlay extends Command {
 	constructor(client: Lavamusic) {
@@ -24,7 +25,7 @@ export default class FairPlay extends Command {
 			},
 			permissions: {
 				dev: false,
-				client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+				client: [SendMessages, ReadMessageHistory, ViewChannel, EmbedLinks],
 				user: [],
 			},
 			slashCommand: true,

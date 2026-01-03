@@ -75,7 +75,7 @@ export default class InteractionCreate extends Event {
 			) {
 				return await (interaction.member as GuildMember)
 					.send({
-						content: t(I18N.events.interaction.no_send_message, { lng: locale }),
+						content: t(I18N.events.interaction.no_send_message),
 					})
 					.catch(() => {
 						null;
@@ -97,7 +97,6 @@ export default class InteractionCreate extends Event {
 					if (missingClientPermissions.length > 0) {
 						return await interaction.reply({
 							content: t(I18N.events.interaction.no_permission, {
-								lng: locale,
 								permissions: missingClientPermissions
 									.map((perm: string) => `\`${perm}\``)
 									.join(", "),
@@ -112,7 +111,7 @@ export default class InteractionCreate extends Event {
 					!(interaction.member as GuildMember).permissions.has(command.permissions.user)
 				) {
 					await interaction.reply({
-						content: t(I18N.events.interaction.no_user_permission, { lng: locale }),
+						content: t(I18N.events.interaction.no_user_permission),
 						flags: MessageFlags.Ephemeral,
 					});
 					return;
@@ -128,13 +127,13 @@ export default class InteractionCreate extends Event {
 				if (!voted) {
 					const voteBtn = new ActionRowBuilder<ButtonBuilder>().addComponents(
 						new ButtonBuilder()
-							.setLabel(t(I18N.events.interaction.vote_button, { lng: locale }))
+							.setLabel(t(I18N.events.interaction.vote_button))
 							.setURL(`https://top.gg/bot/${this.client.user?.id}/vote`)
 							.setStyle(ButtonStyle.Link),
 					);
 
 					return await interaction.reply({
-						content: t(I18N.events.interaction.vote_message, { lng: locale }),
+						content: t(I18N.events.interaction.vote_message),
 						components: [voteBtn],
 						flags: MessageFlags.Ephemeral,
 					});
@@ -144,28 +143,19 @@ export default class InteractionCreate extends Event {
 				if (command.player.voice) {
 					if (!(interaction.member as GuildMember).voice.channel) {
 						return await interaction.reply({
-							content: t(I18N.events.interaction.no_voice_channel, {
-								lng: locale,
-								command: command.name,
-							}),
+							content: t(I18N.events.interaction.no_voice_channel, { command: command.name }),
 						});
 					}
 
 					if (!clientMember.permissions.has(PermissionFlagsBits.Connect)) {
 						return await interaction.reply({
-							content: t(I18N.events.interaction.no_connect_permission, {
-								lng: locale,
-								command: command.name,
-							}),
+							content: t(I18N.events.interaction.no_connect_permission, { command: command.name }),
 						});
 					}
 
 					if (!clientMember.permissions.has(PermissionFlagsBits.Speak)) {
 						return await interaction.reply({
-							content: t(I18N.events.interaction.no_speak_permission, {
-								lng: locale,
-								command: command.name,
-							}),
+							content: t(I18N.events.interaction.no_speak_permission, { command: command.name }),
 						});
 					}
 
@@ -175,10 +165,7 @@ export default class InteractionCreate extends Event {
 						!clientMember.permissions.has(PermissionFlagsBits.RequestToSpeak)
 					) {
 						return await interaction.reply({
-							content: t(I18N.events.interaction.no_request_to_speak, {
-								lng: locale,
-								command: command.name,
-							}),
+							content: t(I18N.events.interaction.no_request_to_speak, { command: command.name }),
 						});
 					}
 
@@ -188,7 +175,6 @@ export default class InteractionCreate extends Event {
 					) {
 						return await interaction.reply({
 							content: t(I18N.events.interaction.different_voice_channel, {
-								lng: locale,
 								channel: `<#${clientMember.voice.channelId}>`,
 								command: command.name,
 							}),
@@ -200,7 +186,7 @@ export default class InteractionCreate extends Event {
 					const queue = this.client.manager.getPlayer(interaction.guildId);
 					if (!queue?.queue.current) {
 						return await interaction.reply({
-							content: t(I18N.events.interaction.no_music_playing, { lng: locale }),
+							content: t(I18N.events.interaction.no_music_playing),
 						});
 					}
 				}
@@ -210,9 +196,7 @@ export default class InteractionCreate extends Event {
 					if (dj?.mode) {
 						const djRole = await this.client.db.getRoles(interaction.guildId);
 						if (!djRole) {
-							return await interaction.reply({
-								content: t(I18N.events.interaction.no_dj_role, { lng: locale }),
-							});
+							return await interaction.reply({ content: t(I18N.events.interaction.no_dj_role) });
 						}
 
 						const hasDJRole = (interaction.member as GuildMember).roles.cache.some((role) =>
@@ -227,7 +211,7 @@ export default class InteractionCreate extends Event {
 							)
 						) {
 							return await interaction.reply({
-								content: t(I18N.events.interaction.no_dj_permission, { lng: locale }),
+								content: t(I18N.events.interaction.no_dj_permission),
 								flags: MessageFlags.Ephemeral,
 							});
 						}
@@ -302,7 +286,7 @@ export default class InteractionCreate extends Event {
 			} catch (error) {
 				logger.error(error);
 				await interaction.reply({
-					content: t(I18N.events.interaction.error, { lng: locale, error }),
+					content: t(I18N.events.interaction.error, { error }),
 				});
 			}
 		} else if (interaction.type === InteractionType.ApplicationCommandAutocomplete) {

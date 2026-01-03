@@ -4,6 +4,13 @@ import { getSupportedLanguages, I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import { getLanguageName } from "../../types/locales";
 import { getEmojiFlag } from "../../utils/CountryEmojiFlag";
+import {
+	EmbedLinks,
+	ManageGuild,
+	ReadMessageHistory,
+	SendMessages,
+	ViewChannel,
+} from "../../utils/Permissions";
 
 /** Persistent cache for Intl.DisplayNames instances */
 const displayNamesCache = new Map<string, Intl.DisplayNames>();
@@ -61,8 +68,8 @@ export default class LanguageCommand extends Command {
 			},
 			permissions: {
 				dev: false,
-				client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
-				user: ["ManageGuild"],
+				client: [SendMessages, ReadMessageHistory, ViewChannel, EmbedLinks],
+				user: [ManageGuild],
 			},
 			slashCommand: true,
 			options: [

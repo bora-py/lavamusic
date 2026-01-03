@@ -2,6 +2,13 @@ import type { GuildMember } from "discord.js";
 import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import logger from "../../structures/Logger";
+import {
+	EmbedLinks,
+	ManageGuild,
+	ReadMessageHistory,
+	SendMessages,
+	ViewChannel,
+} from "../../utils/Permissions";
 
 export default class _247 extends Command {
 	constructor(client: Lavamusic) {
@@ -25,8 +32,8 @@ export default class _247 extends Command {
 			},
 			permissions: {
 				dev: false,
-				client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
-				user: ["ManageGuild"],
+				client: [SendMessages, ReadMessageHistory, ViewChannel, EmbedLinks],
+				user: [ManageGuild],
 			},
 			slashCommand: true,
 			options: [],

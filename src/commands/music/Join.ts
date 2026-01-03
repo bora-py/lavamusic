@@ -1,6 +1,14 @@
 import type { VoiceChannel } from "discord.js";
 import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
+import {
+	Connect,
+	EmbedLinks,
+	ReadMessageHistory,
+	SendMessages,
+	Speak,
+	ViewChannel,
+} from "../../utils/Permissions";
 
 export default class Join extends Command {
 	constructor(client: Lavamusic) {
@@ -24,14 +32,7 @@ export default class Join extends Command {
 			},
 			permissions: {
 				dev: false,
-				client: [
-					"SendMessages",
-					"ReadMessageHistory",
-					"ViewChannel",
-					"EmbedLinks",
-					"Connect",
-					"Speak",
-				],
+				client: [SendMessages, ReadMessageHistory, ViewChannel, EmbedLinks, Connect, Speak],
 				user: [],
 			},
 			slashCommand: true,

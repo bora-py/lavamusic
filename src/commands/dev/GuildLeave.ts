@@ -2,6 +2,7 @@ import { ChannelType, type TextChannel } from "discord.js";
 import { env } from "../../env";
 import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
+import { EmbedLinks, ReadMessageHistory, SendMessages, ViewChannel } from "../../utils/Permissions";
 
 export default class GuildLeave extends Command {
 	constructor(client: Lavamusic) {
@@ -24,7 +25,7 @@ export default class GuildLeave extends Command {
 			},
 			permissions: {
 				dev: true,
-				client: ["SendMessages", "ReadMessageHistory", "ViewChannel", "EmbedLinks"],
+				client: [SendMessages, ReadMessageHistory, ViewChannel, EmbedLinks],
 				user: [],
 			},
 			slashCommand: false,

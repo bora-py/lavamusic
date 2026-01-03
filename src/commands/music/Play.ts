@@ -1,4 +1,3 @@
-/** biome-ignore-all lint/style/noNonNullAssertion: explanation */
 import type {
 	ApplicationCommandOptionChoiceData,
 	AutocompleteInteraction,
@@ -8,6 +7,14 @@ import type { SearchResult } from "lavalink-client";
 import { I18N, t } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
 import { applyFairPlayToQueue } from "../../utils/functions/player";
+import {
+	Connect,
+	EmbedLinks,
+	ReadMessageHistory,
+	SendMessages,
+	Speak,
+	ViewChannel,
+} from "../../utils/Permissions";
 
 export default class Play extends Command {
 	constructor(client: Lavamusic) {
@@ -36,14 +43,7 @@ export default class Play extends Command {
 			},
 			permissions: {
 				dev: false,
-				client: [
-					"SendMessages",
-					"ReadMessageHistory",
-					"ViewChannel",
-					"EmbedLinks",
-					"Connect",
-					"Speak",
-				],
+				client: [SendMessages, ReadMessageHistory, ViewChannel, EmbedLinks, Connect, Speak],
 				user: [],
 			},
 			slashCommand: true,

@@ -1,6 +1,13 @@
 import { ChannelType, type TextChannel } from "discord.js";
 import { I18N } from "../../structures/I18n";
 import { Command, type Context, type Lavamusic } from "../../structures/index";
+import {
+	CreateInstantInvite,
+	EmbedLinks,
+	ReadMessageHistory,
+	SendMessages,
+	ViewChannel,
+} from "../../utils/Permissions";
 
 export default class CreateInvite extends Command {
 	constructor(client: Lavamusic) {
@@ -18,13 +25,7 @@ export default class CreateInvite extends Command {
 			player: { voice: false, dj: false, active: false, djPerm: null },
 			permissions: {
 				dev: true,
-				client: [
-					"SendMessages",
-					"CreateInstantInvite",
-					"ReadMessageHistory",
-					"EmbedLinks",
-					"ViewChannel",
-				],
+				client: [SendMessages, CreateInstantInvite, ReadMessageHistory, EmbedLinks, ViewChannel],
 				user: [],
 			},
 			slashCommand: false,
