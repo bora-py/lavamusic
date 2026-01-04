@@ -1,276 +1,174 @@
-import { randomUUID } from "node:crypto";
-import { and, eq } from "drizzle-orm";
-import { env } from "../env";
-import { db, schema } from "./index";
+import { getDatabase, type IDatabaseProvider } from "./index";
 
-const { guild, setup, stay, dj, role, playlist } = schema;
-
+/**
+ * ServerData provides a backward-compatible API for database operations.
+ * It wraps the new IDatabaseProvider interface.
+ */
 export default class ServerData {
+	private provider: IDatabaseProvider | null = null;
+
+	private async getProvider(): Promise<IDatabaseProvider> {
+		if (!this.provider) {
+			this.provider = await getDatabase();
+		}
+		return this.provider;
+	}
+
 	// -----------------------------
 	// Guild
 	// -----------------------------
 	public async get(guildId: string) {
-		const result = await db.select().from(guild).where(eq(guild.guildId, guildId));
-
-		if (result.length > 0) return result[0];
-
-		return this.createGuild(guildId);
-	}
-
-	private async createGuild(guildId: string) {
-		// Use onConflictDoNothing to prevent duplicate key errors
-		await db
-			.insert(guild)
-			.values({
-				guildId,
-				prefix: env.PREFIX,
-				language: env.DEFAULT_LANGUAGE,
-			})
-			.onConflictDoNothing();
-
-		return (await db.select().from(guild).where(eq(guild.guildId, guildId)))[0];
+		const provider = await this.getProvider();
+		return provider.guilds.get(guildId);
 	}
 
 	public async setPrefix(guildId: string, prefix: string) {
-		// First ensure the guild exists
-		await this.get(guildId);
-
-		await db.update(guild).set({ prefix }).where(eq(guild.guildId, guildId));
+		const provider = await this.getProvider();
+		await provider.guilds.setPrefix(guildId, prefix);
 	}
 
 	public async getPrefix(guildId: string) {
-		const g = await this.get(guildId);
-		return g?.prefix ?? env.PREFIX;
+		const provider = await this.getProvider();
+		return provider.guilds.getPrefix(guildId);
 	}
 
 	public async updateLanguage(guildId: string, language: string) {
-		// First ensure the guild exists
-		await this.get(guildId);
-
-		await db.update(guild).set({ language }).where(eq(guild.guildId, guildId));
+		const provider = await this.getProvider();
+		await provider.guilds.updateLanguage(guildId, language);
 	}
 
 	public async getLanguage(guildId: string) {
-		const g = await this.get(guildId);
-		return g?.language ?? env.DEFAULT_LANGUAGE;
+		const provider = await this.getProvider();
+		return provider.guilds.getLanguage(guildId);
 	}
 
 	public async setDefaultVolume(guildId: string, volume: number) {
-		// First ensure the guild exists
-		await this.get(guildId);
-
-		await db.update(guild).set({ defaultVolume: volume }).where(eq(guild.guildId, guildId));
+		const provider = await this.getProvider();
+		await provider.guilds.setDefaultVolume(guildId, volume);
 	}
 
 	public async getDefaultVolume(guildId: string): Promise<number> {
-		const g = await this.get(guildId);
-		return g?.defaultVolume ?? 50;
+		const provider = await this.getProvider();
+		return provider.guilds.getDefaultVolume(guildId);
 	}
 
 	// -----------------------------
 	// Setup
 	// -----------------------------
 	public async getSetup(guildId: string) {
-		const r = await db.select().from(setup).where(eq(setup.guildId, guildId));
-		return r[0] ?? null;
+		const provider = await this.getProvider();
+		return provider.setups.get(guildId);
 	}
 
 	public async setSetup(guildId: string, textId: string, messageId: string) {
-		// First ensure the guild exists
-		await this.get(guildId);
-
-		const existing = await this.getSetup(guildId);
-
-		if (existing) {
-			await db.update(setup).set({ textId, messageId }).where(eq(setup.guildId, guildId));
-		} else {
-			await db.insert(setup).values({
-				guildId,
-				textId,
-				messageId,
-			});
-		}
+		const provider = await this.getProvider();
+		await provider.setups.set(guildId, textId, messageId);
 	}
 
 	public async deleteSetup(guildId: string) {
-		await db.delete(setup).where(eq(setup.guildId, guildId));
+		const provider = await this.getProvider();
+		await provider.setups.delete(guildId);
 	}
 
 	// -----------------------------
 	// 24/7 Stay
 	// -----------------------------
 	public async set_247(guildId: string, textId: string, voiceId: string) {
-		// First ensure the guild exists
-		await this.get(guildId);
-
-		const existing = await this.get_247(guildId);
-
-		if (existing) {
-			await db.update(stay).set({ textId, voiceId }).where(eq(stay.guildId, guildId));
-		} else {
-			await db.insert(stay).values({
-				guildId,
-				textId,
-				voiceId,
-			});
-		}
+		const provider = await this.getProvider();
+		await provider.stays.set(guildId, textId, voiceId);
 	}
 
 	public async delete_247(guildId: string) {
-		await db.delete(stay).where(eq(stay.guildId, guildId));
+		const provider = await this.getProvider();
+		await provider.stays.delete(guildId);
 	}
 
 	public async get_247(guildId?: string) {
-		if (guildId) {
-			const r = await db.select().from(stay).where(eq(stay.guildId, guildId));
-			return r[0] ?? null;
-		}
-		return await db.select().from(stay);
+		const provider = await this.getProvider();
+		return provider.stays.get(guildId);
 	}
 
 	// -----------------------------
 	// DJ Mode
 	// -----------------------------
 	public async setDj(guildId: string, mode: boolean) {
-		// First ensure the guild exists
-		await this.get(guildId);
-
-		const existing = await this.getDj(guildId);
-
-		if (existing) {
-			await db
-				.update(dj)
-				.set({ mode: mode ? 1 : 0 })
-				.where(eq(dj.guildId, guildId));
-		} else {
-			await db.insert(dj).values({
-				guildId,
-				mode: mode ? 1 : 0,
-			});
-		}
+		const provider = await this.getProvider();
+		await provider.djs.setMode(guildId, mode);
 	}
 
 	public async getDj(guildId: string) {
-		const r = await db.select().from(dj).where(eq(dj.guildId, guildId));
-		return r[0] ?? null;
+		const provider = await this.getProvider();
+		return provider.djs.get(guildId);
 	}
 
 	// -----------------------------
 	// Roles
 	// -----------------------------
 	public async getRoles(guildId: string) {
-		return await db.select().from(role).where(eq(role.guildId, guildId));
+		const provider = await this.getProvider();
+		return provider.roles.getAll(guildId);
 	}
 
 	public async addRole(guildId: string, roleId: string) {
-		// First ensure the guild exists
-		await this.get(guildId);
-
-		// Use onConflictDoNothing to prevent duplicate role errors
-		await db
-			.insert(role)
-			.values({
-				guildId,
-				roleId,
-			})
-			.onConflictDoNothing();
+		const provider = await this.getProvider();
+		await provider.roles.add(guildId, roleId);
 	}
 
 	public async removeRole(guildId: string, roleId: string) {
-		await db.delete(role).where(and(eq(role.guildId, guildId), eq(role.roleId, roleId)));
+		const provider = await this.getProvider();
+		await provider.roles.remove(guildId, roleId);
 	}
 
 	public async clearRoles(guildId: string) {
-		await db.delete(role).where(eq(role.guildId, guildId));
+		const provider = await this.getProvider();
+		await provider.roles.clear(guildId);
 	}
 
 	// -----------------------------
 	// Playlists
 	// -----------------------------
 	public async getPlaylist(userId: string, name: string) {
-		const r = await db
-			.select()
-			.from(playlist)
-			.where(and(eq(playlist.userId, userId), eq(playlist.name, name)));
-
-		return r[0] ?? null;
+		const provider = await this.getProvider();
+		return provider.playlists.get(userId, name);
 	}
 
 	public async getUserPlaylists(userId: string) {
-		return await db.select().from(playlist).where(eq(playlist.userId, userId));
+		const provider = await this.getProvider();
+		return provider.playlists.getUserPlaylists(userId);
 	}
 
 	public async createPlaylist(userId: string, name: string) {
-		await db
-			.insert(playlist)
-			.values({
-				id: randomUUID(),
-				userId,
-				name,
-				tracks: JSON.stringify([]),
-			})
-			.onConflictDoNothing();
+		const provider = await this.getProvider();
+		await provider.playlists.create(userId, name);
 	}
 
 	public async createPlaylistWithTracks(userId: string, name: string, tracks: string[]) {
-		await db
-			.insert(playlist)
-			.values({
-				id: randomUUID(),
-				userId,
-				name,
-				tracks: JSON.stringify(tracks),
-			})
-			.onConflictDoNothing();
+		const provider = await this.getProvider();
+		await provider.playlists.createWithTracks(userId, name, tracks);
 	}
 
 	public async deletePlaylist(userId: string, name: string) {
-		await db.delete(playlist).where(and(eq(playlist.userId, userId), eq(playlist.name, name)));
+		const provider = await this.getProvider();
+		await provider.playlists.delete(userId, name);
 	}
 
 	public async deleteSongsFromPlaylist(userId: string, playlistName: string) {
-		await db
-			.update(playlist)
-			.set({ tracks: JSON.stringify([]) })
-			.where(and(eq(playlist.userId, userId), eq(playlist.name, playlistName)));
+		const provider = await this.getProvider();
+		await provider.playlists.clearTracks(userId, playlistName);
 	}
 
 	public async addTracksToPlaylist(userId: string, playlistName: string, tracks: string[]) {
-		const p = await this.getPlaylist(userId, playlistName);
-
-		if (!p) {
-			await this.createPlaylistWithTracks(userId, playlistName, tracks);
-			return;
-		}
-
-		const existing = p.tracks ? JSON.parse(p.tracks) : [];
-		const updated = [...existing, ...tracks];
-
-		await db
-			.update(playlist)
-			.set({ tracks: JSON.stringify(updated) })
-			.where(and(eq(playlist.userId, userId), eq(playlist.name, playlistName)));
+		const provider = await this.getProvider();
+		await provider.playlists.addTracks(userId, playlistName, tracks);
 	}
 
 	public async removeSong(userId: string, playlistName: string, encodedSong: string) {
-		const p = await this.getPlaylist(userId, playlistName);
-		if (!p) return;
-
-		const tracks: string[] = JSON.parse(p.tracks ?? "[]");
-
-		const idx = tracks.indexOf(encodedSong);
-		if (idx !== -1) tracks.splice(idx, 1);
-
-		await db
-			.update(playlist)
-			.set({ tracks: JSON.stringify(tracks) })
-			.where(and(eq(playlist.userId, userId), eq(playlist.name, playlistName)));
+		const provider = await this.getProvider();
+		await provider.playlists.removeTrack(userId, playlistName, encodedSong);
 	}
 
 	public async getTracksFromPlaylist(userId: string, playlistName: string) {
-		const p = await this.getPlaylist(userId, playlistName);
-		if (!p) return null;
-
-		return JSON.parse(p.tracks ?? "[]");
+		const provider = await this.getProvider();
+		return provider.playlists.getTracks(userId, playlistName);
 	}
 }
