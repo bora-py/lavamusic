@@ -87,7 +87,7 @@ export default class Deploy extends Command {
 
 		collector.on("collect", async (interaction: ButtonInteraction) => {
 			if (interaction.user.id !== ctx.author?.id) {
-				return interaction.reply({
+				return await interaction.reply({
 					content: ctx.locale(I18N.common.errors.no_permissions),
 					flags: MessageFlags.Ephemeral,
 				});
@@ -111,6 +111,7 @@ export default class Deploy extends Command {
 				});
 
 				collector.stop("success");
+				return;
 			} catch (error) {
 				logger.error(`[DEPLOY] ${ctx.locale(I18N.dev.deploy.status.failed, { error: error })} `);
 
@@ -118,6 +119,7 @@ export default class Deploy extends Command {
 					content: ctx.locale(I18N.common.errors.generic, { error: error }),
 					components: [],
 				});
+				return;
 			}
 		});
 
