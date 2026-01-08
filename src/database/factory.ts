@@ -16,7 +16,12 @@ export function detectDatabaseType(url?: string): DatabaseType {
 		return DatabaseType.Postgres;
 	}
 
-	if (url.startsWith("sqlite:") || url.endsWith(".db") || url.endsWith(".sqlite") || url.endsWith(".sqlite3")) {
+	if (
+		url.startsWith("sqlite:") ||
+		url.endsWith(".db") ||
+		url.endsWith(".sqlite") ||
+		url.endsWith(".sqlite3")
+	) {
 		return DatabaseType.SQLite;
 	}
 
@@ -54,9 +59,28 @@ export async function createDatabaseProvider(): Promise<IDatabaseProvider> {
 
 		case DatabaseType.PGLite: {
 			const { drizzle } = await import("drizzle-orm/pglite");
-
 			const dataDir = env.DATABASE_URL?.replace("file:", "") || "./lavamusic-pgdata";
-			const db = drizzle(dataDir, { schema: pgSchema });
+
+			let client: any;
+
+			// PGLite bundle workaround
+			if (process.env.NODE_ENV === "production") {
+				try {
+					// Dynamic import to not break dev if assets don't exist
+					const { createPGlite } = await import("./pglite-wrapper");
+					client = await createPGlite(dataDir);
+					logger.info("[DB] Using bundled PGlite");
+				} catch (err) {
+					logger.error("Failed to load bundled PGlite, falling back to standard:", err);
+					const { PGlite } = await import("@electric-sql/pglite");
+					client = new PGlite(dataDir);
+				}
+			} else {
+				const { PGlite } = await import("@electric-sql/pglite");
+				client = new PGlite(dataDir);
+			}
+
+			const db = drizzle(client, { schema: pgSchema });
 
 			logger.success("[DB] Connected to PGLite");
 			return new PostgresProvider(dbType, db, pgSchema);

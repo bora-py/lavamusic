@@ -1,15 +1,19 @@
-# 🌍 Multilanguage Support for Lavamusic 🎶
+# 🌍 Multilanguage support for Lavamusic 🎶
 
 Help us bring Lavamusic to the world!
 
 We use **i18next** with a categorized folder structure to manage translations.
 
-## 🌟 How to Add a New Language
+## 🌟 How to add a new language
 
-1. 🔎 **Find the code:** Identify the ISO language code supported by Discord (e.g., `en-US`, `es-ES`, `fr`). You can find the list [here](https://discord.com/developers/docs/reference#locales).
-2. 📁 **Create directory:** Create a new folder in `locales/` with your language code (e.g., `locales/fr/`).
-3. 📋 **Copy source:** Copy all `.json` files from `locales/en-US/` into your new folder.
-4. 🌐 **Translate:** Translate the strings in the JSON filesto the desired language.
+1. 🔎 **Find the code**  
+  Identify the ISO language code supported by Discord (e.g., `en-US`, `es-ES`, `fr`). You can find the list [here](https://discord.com/developers/docs/reference#locales).
+2. 📁 **Create directory**  
+  Create a new folder in `locales/` with your language code (e.g., `locales/fr/`).
+3. 📋 **Copy source**  
+  Copy all `.json` files from `locales/en-US/` into your new folder.
+4. 🌐 **Translate**  
+  Translate the strings in the JSON files to the desired language.
 
 ### 📂 Directory structure
 
@@ -29,40 +33,47 @@ locales/
 │   └── ...
 ```
 
-### 📚 Available Translations
+### 📚 Available translations
 
-- [x] 🇺🇸 English (US) - `en-US` (Default)
-- [ ] 🇧🇬 Bulgarian - `bg` (Not Started)
-- [x] 🇨🇳 Chinese (CN) - `zh-CN` [by @appujet](https://github.com/Appujet) (Ai Translation - Not Accurate)
-- [x] 🇹🇼 Chinese (TW) - `zh-TW` [by @apple050620312](https://github.com/apple050620312)
-- [ ] 🇭🇷 Croatian - `hr` (Not Started)
-- [ ] 🇨🇿 Czech - `cs` (Not Started)
-- [ ] 🇩🇰 Danish - `da` (Not Started)
-- [ ] 🇳🇱 Dutch - `nl` (Not Started)
-- [ ] 🇬🇧 English (GB) - `en-GB` (Not Started)
-- [ ] 🇫🇮 Finnish - `fi` (Not Started)
-- [x] 🇫🇷 French - `fr` [by @LucasB25](https://github.com/LucasB25)
-- [x] 🇩🇪 German - `de` [by @LucasB25](https://github.com/LucasB25)
-- [ ] 🇬🇷 Greek - `el` (Not Started)
-- [x] 🇮🇳 Hindi - `hi` [by @Appujet](https://github.com/Appujet) (Ai Translation - Not Accurate)
-- [ ] 🇭🇺 Hungarian - `hu` (Not Started)
-- [x] 🇮🇩 Indonesian - `id` [by @iaMJ](https://github.com/idMJA)
-- [x] 🇮🇹 Italian - `it` [by @lori28167](https://github.com/lori28167)
-- [x] 🇯🇵 Japanese - `ja` [by @hatry4](https://github.com/hatry4)
-- [x] 🇰🇷 Korean - `ko` [by @hwangsihu](https://github.com/hwangsihu)
-- [ ] 🇱🇹 Lithuanian - `lt` (Not Started)
-- [x] 🇳🇴 Norwegian - `no` [by @appujet](https://github.com/Appujet) (Ai Translation - Not Accurate)
-- [x] 🇵🇱 Polish - `pl` [by @InfNibor](https://github.com/infnibor) and [by @LucasB25](https://github.com/LucasB25)
-- [ ] 🇧🇷 Portuguese (BR) - `pt-BR` (Not Started)
-- [x] 🇵🇹 Portuguese (PT) - `pt-PT` [by @LucasB25](https://github.com/LucasB25)
-- [ ] 🇷🇴 Romanian - `ro` (Not Started)
-- [x] 🇷🇺 Russian - `ru` [by @LucasB25](https://github.com/LucasB25)
-- [x] 🇪🇸 Spanish (ES) - `es-ES` [by @LucasB25](https://github.com/LucasB25)
-- [ ] 🇸🇪 Swedish - `sv-SE` (Not Started)
-- [x] 🇹🇭 Thai - `th` [by @fexncns](https://github.com/fexncns)
-- [x] 🇹🇷 Turkish - `tr` [by @IlkayAksoy](https://github.com/IlkayAksoy)
-- [ ] 🇺🇦 Ukrainian - `uk` (Not Started)
-- [x] 🇻🇳 Vietnamese - `vi` [by @nhutlamm](https://github.com/nhutlamm) (Ai Translation - Not Accurate)
+> [!NOTE] Status
+> ✅ Available  
+> ❌ Unavailable  
+> 🤖 AI Translation
+
+| Language           | Code    | Status | Contributors                                                                       |
+| :----------------- | :------ | :----: | :--------------------------------------------------------------------------------- |
+| 🇺🇸 English (US)    | `en-US` |   ✅   | -                                                                                  |
+| 🇧🇬 Bulgarian       | `bg`    |   ❌   | -                                                                                  |
+| 🇨🇳 Chinese (CN)    | `zh-CN` |   🤖   | [@appujet](https://github.com/Appujet)                                             |
+| 🇹🇼 Chinese (TW)    | `zh-TW` |   ✅   | [@apple050620312](https://github.com/apple050620312)                               |
+| 🇭🇷 Croatian        | `hr`    |   ❌   | -                                                                                  |
+| 🇨🇿 Czech           | `cs`    |   ❌   | -                                                                                  |
+| 🇩🇰 Danish          | `da`    |   ❌   | -                                                                                  |
+| 🇳🇱 Dutch           | `nl`    |   ❌   | -                                                                                  |
+| 🇬🇧 English (GB)    | `en-GB` |   ❌   | -                                                                                  |
+| 🇫🇮 Finnish         | `fi`    |   ❌   | -                                                                                  |
+| 🇫🇷 French          | `fr`    |   ✅   | [@LucasB25](https://github.com/LucasB25)                                           |
+| 🇩🇪 German          | `de`    |   ✅   | [@LucasB25](https://github.com/LucasB25)                                           |
+| 🇬🇷 Greek           | `el`    |   ❌   | -                                                                                  |
+| 🇮🇳 Hindi           | `hi`    |   🤖   | [@Appujet](https://github.com/Appujet)                                             |
+| 🇭🇺 Hungarian       | `hu`    |   ❌   | -                                                                                  |
+| 🇮🇩 Indonesian      | `id`    |   ✅   | [@iaMJ](https://github.com/idMJA)                                                  |
+| 🇮🇹 Italian         | `it`    |   ✅   | [@lori28167](https://github.com/lori28167)                                         |
+| 🇯🇵 Japanese        | `ja`    |   ✅   | [@hatry4](https://github.com/hatry4)                                               |
+| 🇰🇷 Korean          | `ko`    |   ✅   | [@hwangsihu](https://github.com/hwangsihu)                                         |
+| 🇱🇹 Lithuanian      | `lt`    |   ❌   | -                                                                                  |
+| 🇳🇴 Norwegian       | `no`    |   🤖   | [@appujet](https://github.com/Appujet)                                             |
+| 🇵🇱 Polish          | `pl`    |   ✅   | [@InfNibor](https://github.com/infnibor), [@LucasB25](https://github.com/LucasB25) |
+| 🇧🇷 Portuguese (BR) | `pt-BR` |   ✅   | [@AndreAugustoDev](https://github.com/andreaugustodev)                             |
+| 🇵🇹 Portuguese (PT) | `pt-PT` |   ✅   | [@LucasB25](https://github.com/LucasB25)                                           |
+| 🇷🇴 Romanian        | `ro`    |   ❌   | -                                                                                  |
+| 🇷🇺 Russian         | `ru`    |   ✅   | [@LucasB25](https://github.com/LucasB25)                                           |
+| 🇪🇸 Spanish (ES)    | `es-ES` |   ✅   | [@LucasB25](https://github.com/LucasB25)                                           |
+| 🇸🇪 Swedish         | `sv-SE` |   ❌   | -                                                                                  |
+| 🇹🇭 Thai            | `th`    |   ✅   | [@fexncns](https://github.com/fexncns)                                             |
+| 🇹🇷 Turkish         | `tr`    |   ✅   | [@IlkayAksoy](https://github.com/IlkayAksoy)                                       |
+| 🇺🇦 Ukrainian       | `uk`    |   ❌   | -                                                                                  |
+| 🇻🇳 Vietnamese      | `vi`    |   🤖   | [@nhutlamm](https://github.com/nhutlamm)                                           |
 
 ## 📝 Translation Guidelines
 
@@ -99,7 +110,7 @@ locales/
 
 To ensure `{}` are not removed during translations, use the format tags: `["{", "}"]`.
 
-## 🎉 Have a language to contribute?
+## 🎉 Have a Language to Contribute?
 
 1. Fork the repository.
 2. Duplicate `locales/en-US` and rename the folder to your language code.

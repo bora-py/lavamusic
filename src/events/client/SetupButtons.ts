@@ -2,6 +2,7 @@ import type { Message } from "discord.js";
 import { I18N, t } from "../../structures/I18n";
 import { Event, type Lavamusic } from "../../structures/index";
 import type { Requester } from "../../types";
+import { LavamusicEventType } from "../../types/events";
 import { getButtons } from "../../utils/Buttons";
 import { buttonReply } from "../../utils/SetupSystem";
 import { checkDj } from "../player/TrackStart";
@@ -9,6 +10,7 @@ import { checkDj } from "../player/TrackStart";
 export default class SetupButtons extends Event {
 	constructor(client: Lavamusic, file: string) {
 		super(client, file, {
+			type: LavamusicEventType.Client,
 			name: "setupButtons",
 		});
 	}

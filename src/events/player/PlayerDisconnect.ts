@@ -1,11 +1,13 @@
 import type { TextChannel } from "discord.js";
 import type { Player } from "lavalink-client";
 import { Event, type Lavamusic } from "../../structures/index";
+import { LavamusicEventType } from "../../types/events";
 import { updateSetup } from "../../utils/SetupSystem";
 
 export default class PlayerDisconnect extends Event {
 	constructor(client: Lavamusic, file: string) {
 		super(client, file, {
+			type: LavamusicEventType.Player,
 			name: "playerDisconnect",
 		});
 	}

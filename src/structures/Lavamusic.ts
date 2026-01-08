@@ -13,11 +13,11 @@ import {
 	type RESTPostAPIChatInputApplicationCommandsJSONBody,
 	Routes,
 } from "discord.js";
-import { existsSync } from "fs";
-import { join } from "path";
+import { CommandList } from "../commands";
 import config from "../config";
 import ServerData from "../database/server";
 import { env } from "../env";
+import { EventList } from "../events";
 import loadPlugins from "../plugin/index";
 import { LavamusicEventType } from "../types/events";
 import * as Utils from "../utils/Utils";
@@ -69,11 +69,11 @@ export default class Lavamusic extends Client {
 		this.manager = new LavalinkClient(this);
 
 		try {
-			await this.loadCommands();
+			this.loadCommands();
 			logger.info(`Successfully loaded ${this.commands.size} commands!`);
 
-			await this.loadEvents();
-			logger.info("Successfully loaded events!");
+			this.loadEvents();
+			logger.info(`Successfully loaded events!`);
 
 			loadPlugins(this);
 
@@ -87,7 +87,7 @@ export default class Lavamusic extends Client {
 	}
 
 	/**
-	 * Setsup interaction listener for buttons.
+	 * Setup interaction listener for buttons.
 	 */
 	private setupInteractionListener(): void {
 		this.on(Events.InteractionCreate, async (interaction: Interaction) => {
@@ -109,27 +109,28 @@ export default class Lavamusic extends Client {
 	}
 
 	/**
-	 * Loads commands from the file system
+	 * Loads commands from registry.
 	 */
 	public async loadCommands(): Promise<void> {
-		// Resolve absolute path relative to this file's location
-		const commandsPath = join(__dirname, "..", "commands");
+		// Reset collections to allow reloads (if ever needed in dev)
+		this.commands.clear();
+		this.aliases.clear();
+		this.body = [];
 
-		// Check existence here to log specific warning for commands
-		if (!existsSync(commandsPath)) {
-			logger.warn(`Commands directory not found at ${commandsPath}`);
-			return;
-		}
-
-		for (const { path: filePath, category, file } of this.utils.walkDirectory(commandsPath)) {
+		for (const CommandClass of CommandList) {
 			try {
-				const cmdModule = await import(filePath);
-				const CommandClass = cmdModule.default || cmdModule;
+				/**
+				 * We assume the class exports as default or named export in the registry.  \
+				 * Registry generator handles import, so here we have the Class constructor directly.  \
+				 * Pass the class name as 'file' identifier for debugging purposes.
+				 */
+				const command = new (CommandClass as any)(this, CommandClass.name);
 
-				if (typeof CommandClass !== "function") continue;
-
-				const command: Command = new CommandClass(this, file);
-				command.category = category;
+				/**
+				 * Ensure category is set
+				 * It should be set in the Command constructor via super options
+				 */
+				if (!command.category) command.category = "general";
 
 				this.commands.set(command.name, command);
 
@@ -141,7 +142,7 @@ export default class Lavamusic extends Client {
 					this.body.push(this.prepareCommandData(command));
 				}
 			} catch (error) {
-				logger.error(`Failed to load command ${file}:`, error);
+				logger.error(`Failed to load command ${CommandClass.name}:`, error);
 			}
 		}
 	}
@@ -208,7 +209,7 @@ export default class Lavamusic extends Client {
 		// If deploying and body is empty, try loading once
 		if (!clear && commandsBody.length === 0) {
 			logger.warn("Command body is empty. Attempting to reload commands before deployment...");
-			await this.loadCommands();
+			this.loadCommands();
 			commandsBody = this.body;
 		}
 
@@ -229,33 +230,31 @@ export default class Lavamusic extends Client {
 	}
 
 	/**
-	 * Loads events from the file system
+	 * Loads events from registry
 	 */
 	private async loadEvents(): Promise<void> {
-		const eventsPath = join(__dirname, "..", "events");
-
-		if (!existsSync(eventsPath)) return;
-
-		for (const { path: filePath, category, file } of this.utils.walkDirectory(eventsPath)) {
+		for (const EventClass of EventList) {
 			try {
-				const eventModule = await import(filePath);
-				const EventClass = eventModule.default || eventModule;
-				const event = new EventClass(this, file);
-
+				const event = new (EventClass as any)(this, EventClass.name);
 				// Register event listeners based on category
-				switch (category) {
+				switch (event.type) {
 					case LavamusicEventType.Player:
-						this.manager.on(event.name, (...args: any[]) => event.run(...args));
+						this.manager.on(event.name as any, (...args: any[]) => event.run(...args));
 						break;
+
 					case LavamusicEventType.Node:
-						this.manager.nodeManager.on(event.name, (...args: any[]) => event.run(...args));
+						this.manager.nodeManager.on(event.name as any, (...args: any[]) => event.run(...args));
 						break;
+
 					case LavamusicEventType.Client:
 						this.on(event.name, (...args: any[]) => event.run(...args));
 						break;
+
+					default:
+						logger.warn(`Event ${event.name} has unknown type: ${event.type}`);
 				}
 			} catch (error) {
-				logger.error(`Failed to load event ${file}:`, error);
+				logger.error(`Failed to load event ${EventClass.name}:`, error);
 			}
 		}
 	}

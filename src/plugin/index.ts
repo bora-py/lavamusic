@@ -1,8 +1,7 @@
-import { existsSync, readdirSync } from "node:fs";
-import { join } from "node:path";
 import type { Lavamusic } from "../structures/index";
 import logger from "../structures/Logger";
 import type { BotPlugin } from "../types/botPlugin";
+import { PluginList } from "./plugins";
 
 /**
  * Validate if a loaded module matches the BotPlugin interface at runtime.
@@ -19,24 +18,11 @@ function isBotPlugin(obj: any): obj is BotPlugin {
  * @param client - The bot client instance.
  */
 export default function loadPlugins(client: Lavamusic): void {
-	const pluginsFolder = join(__dirname, "plugins");
+	logger.info(`[PLUGINS] Loading ${PluginList.length} plugins...`);
 
-	if (!existsSync(pluginsFolder)) {
-		logger.warn(`[PLUGINS] Directory not found at: ${pluginsFolder}`);
-		return;
-	}
-
-	// Filter for js/ts, ignoring definition files
-	const pluginFiles = readdirSync(pluginsFolder).filter(
-		(file) => (file.endsWith(".js") || file.endsWith(".ts")) && !file.endsWith(".d.ts"),
-	);
-
-	for (const file of pluginFiles) {
+	for (const PluginModule of PluginList) {
 		try {
-			const pluginPath = join(pluginsFolder, file);
-
-			const rawModule = require(pluginPath);
-			const plugin: BotPlugin = rawModule.default || rawModule;
+			const plugin: BotPlugin = (PluginModule as any).default || PluginModule;
 
 			/**
 			 * Validate structure before execution.
@@ -44,7 +30,7 @@ export default function loadPlugins(client: Lavamusic): void {
 			 */
 			if (!isBotPlugin(plugin)) {
 				logger.warn(
-					`[PLUGIN] Skipping invalid file: ${file} (Missing 'name' or 'initialize' method)`,
+					`[PLUGIN] Skipping invalid plugin object (Missing 'name' or 'initialize' method)`,
 				);
 				continue;
 			}
@@ -53,7 +39,7 @@ export default function loadPlugins(client: Lavamusic): void {
 			logger.info(`[PLUGIN] Loaded: ${plugin.name} v${plugin.version}`);
 		} catch (error) {
 			// Catch individual plugin errors to continues loading others
-			logger.error(`[PLUGIN] Failed to load ${file}:`, error);
+			logger.error(`[PLUGIN] Failed to initialize plugin:`, error);
 		}
 	}
 }

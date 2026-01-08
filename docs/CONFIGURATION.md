@@ -32,6 +32,25 @@ Your bot's personality lives here:
 > [!NOTE]
 [PGlite](https://pglite.dev/) is a WASM Postgres build packaged into a TypeScript client library that enables you to run Postgres in the browser, Node.js and Bun, with no need to install any other dependencies.
 
+### 🐘 Why PGLite? (And not just SQLite?)
+
+You might be wondering:  
+*`Why PGlite? Isn't SQLite the standard for small/local bots?`*
+
+That's a great question! While SQLite is amazing, PGlite offers a unique advantage for a project like Lavamusic:  
+It allows us to use the power of PostgreSQL without the complexity of setting up a server.
+
+Here is why we made it the default:
+
+- **Postgres power, SQLite simplicity**  
+  PGlite runs entirely in a folder on your computer (just like SQLite), but inside, it is a full PostgreSQL engine running via WASM. You get all the advanced features of Postgres with zero installation steps. It doesn't need a separate server, Docker container, or complex installation.
+
+- **Seamless Scaling**  
+  Start small with PGLite (file-based). If your bot grows to thousands of servers and you need a dedicated database cluster, you simply change the `DATABASE_URL` to a full PostgreSQL server. **No code changes required.** You don't need to rewrite queries or migrate data types.
+
+In short: **It just works**. PGlite gives you the simplicity of a file-based database with the power and scalability of a full database.  
+It's the modern, robust choice for bots that want to stay simple today but be ready for tomorrow.
+
 ## 🌋 Lavalink Customization
 Tweak `Lavalink/application.yml` for audio sources, plugins, and tweaks.
 

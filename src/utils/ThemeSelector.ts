@@ -1,4 +1,4 @@
-export class ThemeSelector {
+class ThemeSelector {
 	/**
 	 * Applies a yellow fire effect to the text.
 	 *
@@ -75,6 +75,8 @@ export class ThemeSelector {
 		return fade;
 	}
 }
+
+export { ThemeSelector };
 
 /**
  * Project: lavamusic

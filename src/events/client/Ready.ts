@@ -3,9 +3,11 @@ import { AutoPoster } from "topgg-autoposter";
 import { env } from "../../env";
 import { Event, type Lavamusic } from "../../structures/index";
 import logger from "../../structures/Logger";
+import { LavamusicEventType } from "../../types/events";
 export default class Ready extends Event {
 	constructor(client: Lavamusic, file: string) {
 		super(client, file, {
+			type: LavamusicEventType.Client,
 			name: Events.ClientReady,
 		});
 	}

@@ -1,11 +1,13 @@
 import { type Message, TextChannel } from "discord.js";
 import { I18N, t } from "../../structures/I18n";
 import { Event, type Lavamusic } from "../../structures/index";
+import { LavamusicEventType } from "../../types/events";
 import { oops, setupStart } from "../../utils/SetupSystem";
 
 export default class SetupSystem extends Event {
 	constructor(client: Lavamusic, file: string) {
 		super(client, file, {
+			type: LavamusicEventType.Client,
 			name: "setupSystem",
 		});
 	}

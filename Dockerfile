@@ -1,63 +1,46 @@
-# Stage 1: Build
+# Builder stage
 FROM oven/bun:alpine AS builder
 
-WORKDIR /opt/lavamusic
+WORKDIR /app
 
-# Install build dependencies
-RUN apk add --no-cache python3 make g++
-
-# Copy package files first for better layer caching
 COPY package.json bun.lock ./
+RUN bun install --frozen-lockfile
 
-# Install dependencies using bun
-RUN bun install --frozen-lockfile --verbose
-
-# Copy remaining source files
 COPY . .
 
-# Build
 RUN bun run build
 
-# Stage 2: Production image
+# Runtime stage
 FROM oven/bun:alpine
 
-ENV NODE_ENV=production \
-    PORT=80 \
-    TZ=UTC
+WORKDIR /app
 
-WORKDIR /opt/lavamusic
+COPY --from=builder --chown=bun:bun /app/dist ./dist
+COPY --from=builder --chown=bun:bun /app/locales ./locales
+COPY --from=builder --chown=bun:bun /app/package.prod.json ./package.json
+COPY --from=builder --chown=bun:bun /app/drizzle ./drizzle
+COPY --from=builder --chown=bun:bun /app/drizzle.config.ts /app/drizzle.config.sqlite.ts ./
+COPY --from=builder --chown=bun:bun /app/src/env.ts ./src/env.ts
+COPY --from=builder --chown=bun:bun /app/src/database/schemas.ts /app/src/database/schemas.sqlite.ts ./src/database/
 
-# Install pnpm and runtime dependencies
-RUN apk add --no-cache --virtual .runtime-deps \
-    openssl \
-    ca-certificates \
-    tzdata \
-    curl
+RUN apk add --no-cache su-exec &&\
+  bun install --production --frozen-lockfile &&\
+  # pglite.wasm & pglite.data symlink from /app/dist
+  PGLITE_PKG="node_modules/@electric-sql/pglite/dist" &&\
+  rm "$PGLITE_PKG/pglite.wasm" &&\
+  rm "$PGLITE_PKG/pglite.data" &&\
+  ln -s /app/dist/pglite.wasm "$PGLITE_PKG/pglite.wasm" &&\
+  ln -s /app/dist/pglite.data "$PGLITE_PKG/pglite.data" &&\
+  # Cleanup
+  bunx clean-modules "**/*.d.ts" "**/@types/**" "**/*.map" "**/test/**" "**/tests/**" -y &&\
+  rm -rf ~/.bun /tmp /var/cache/apk /lib/apk/db\
+  /app/node_modules/@esbuild* /app/node_modules/.bin/esbuild /app/node_modules/@libsql/linux-arm64-gnu
 
-# Copy package files for production dependencies
-COPY --from=builder --chown=bun:bun /opt/lavamusic/package.json /opt/lavamusic/bun.lock ./
-
-# Install production dependencies only
-RUN bun install --frozen-lockfile --production
-
-# Copy built files from builder
-COPY --from=builder --chown=bun:bun /opt/lavamusic/dist ./dist
-COPY --from=builder --chown=bun:bun /opt/lavamusic/locales ./locales
-
-# Setup entrypoint
 COPY --chown=bun:bun entrypoint.sh ./entrypoint.sh
 RUN chmod +x ./entrypoint.sh
 
-# Create non-root user and set permissions
-RUN chown -R bun:bun /opt/lavamusic
-USER bun
+RUN mkdir -p /app/lavamusic-pgdata && chown -R bun:bun /app/lavamusic-pgdata
 
-# Metadata labels
-LABEL maintainer="appujet <sdipedit@gmail.com>" \
-      org.opencontainers.image.title="LavaMusic" \
-      org.opencontainers.image.description="LavaMusic - Advanced Music Bot" \
-      org.opencontainers.image.source="https://github.com/botxlab/lavamusic" \
-      org.opencontainers.image.licenses="MIT"
+ENTRYPOINT [ "./entrypoint.sh" ]
 
-ENTRYPOINT ["./entrypoint.sh"]
-CMD ["bun", "dist/index.js"]
+CMD ["bun", "run", "start"]

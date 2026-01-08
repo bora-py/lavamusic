@@ -17,10 +17,12 @@ import {
 import { I18N, t } from "../../structures/I18n";
 import { Context, Event, type Lavamusic } from "../../structures/index";
 import logger from "../../structures/Logger";
+import { LavamusicEventType } from "../../types/events";
 
 export default class InteractionCreate extends Event {
 	constructor(client: Lavamusic, file: string) {
 		super(client, file, {
+			type: LavamusicEventType.Client,
 			name: "interactionCreate",
 		});
 	}

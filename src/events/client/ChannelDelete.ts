@@ -1,9 +1,11 @@
 import { ChannelType, type GuildChannel, type VoiceBasedChannel } from "discord.js";
 import { Event, type Lavamusic } from "../../structures/index";
+import { LavamusicEventType } from "../../types/events";
 
 export default class ChannelDelete extends Event {
 	constructor(client: Lavamusic, file: string) {
 		super(client, file, {
+			type: LavamusicEventType.Client,
 			name: "channelDelete",
 		});
 	}

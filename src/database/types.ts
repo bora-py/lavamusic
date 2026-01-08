@@ -24,7 +24,6 @@ export type SQLiteDB = BunSQLiteDatabase<typeof sqliteSchema>;
 
 export type AnyDatabase = PostgresDB | PGLiteDB | SQLiteDB;
 
-
 /* Schema Types (Inferred from Drizzle schemas) */
 
 /* Guild */

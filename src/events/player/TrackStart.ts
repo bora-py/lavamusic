@@ -17,11 +17,13 @@ import type { Player, Track, TrackStartEvent } from "lavalink-client";
 import { I18N, t } from "../../structures/I18n";
 import { Event, type Lavamusic } from "../../structures/index";
 import type { Requester } from "../../types";
+import { LavamusicEventType } from "../../types/events";
 import { trackStart } from "../../utils/SetupSystem";
 
 export default class TrackStart extends Event {
 	constructor(client: Lavamusic, file: string) {
 		super(client, file, {
+			type: LavamusicEventType.Player,
 			name: "trackStart",
 		});
 	}

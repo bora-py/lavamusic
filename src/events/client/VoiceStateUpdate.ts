@@ -1,9 +1,11 @@
 import { ChannelType, type GuildMember, PermissionFlagsBits, type VoiceState } from "discord.js";
 import { Event, type Lavamusic } from "../../structures/index";
 import logger from "../../structures/Logger";
+import { LavamusicEventType } from "../../types/events";
 export default class VoiceStateUpdate extends Event {
 	constructor(client: Lavamusic, file: string) {
 		super(client, file, {
+			type: LavamusicEventType.Client,
 			name: "voiceStateUpdate",
 		});
 	}

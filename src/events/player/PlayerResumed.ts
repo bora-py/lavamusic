@@ -1,9 +1,11 @@
 import type { Player, Track } from "lavalink-client";
 import { Event, type Lavamusic } from "../../structures/index";
+import { LavamusicEventType } from "../../types/events";
 
 export default class PlayerResumed extends Event {
 	constructor(client: Lavamusic, file: string) {
 		super(client, file, {
+			type: LavamusicEventType.Player,
 			name: "playerResumed",
 		});
 	}
