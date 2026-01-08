@@ -44,3 +44,11 @@ RUN mkdir -p /app/lavamusic-pgdata && chown -R bun:bun /app/lavamusic-pgdata
 ENTRYPOINT [ "./entrypoint.sh" ]
 
 CMD ["bun", "run", "start"]
+
+# Metadata labels
+LABEL \
+  maintainer="appujet <sdipedit@gmail.com>" \
+  org.opencontainers.image.title="LavaMusic" \
+  org.opencontainers.image.description="LavaMusic - Advanced Music Bot" \
+  org.opencontainers.image.source="https://github.com/botxlab/lavamusic" \
+  org.opencontainers.image.licenses="MIT"
