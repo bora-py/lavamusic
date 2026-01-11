@@ -1,0 +1,639 @@
+{
+    "247": {
+        "description": "Nustatyti botą likti balso kanale",
+        "errors": {
+            "not_in_voice": "Norėdami naudoti šią komandą, turite būti balso kanale.",
+            "generic": "Vykdant šią komandą įvyko klaida."
+        },
+        "messages": {
+            "disabled": "`✅` | 24/7 režimas `IŠJUNGTAS`.",
+            "enabled": "`✅` | 24/7 režimas `ĮJUNGTAS`."
+        }
+    },
+    "fairplay": {
+        "description": "Nustatyti botą groti muziką sąžiningai tarp vartotojų.",
+        "errors": {
+            "not_in_voice": "Norėdami naudoti šią komandą, turite būti balso kanale.",
+            "generic": "Vykdant šią komandą įvyko klaida."
+        },
+        "messages": {
+            "disabled": "`✅` | Fairplay režimas `IŠJUNGTAS`.",
+            "enabled": "`✅` | Fairplay režimas `ĮJUNGTAS`."
+        }
+    },
+    "ping": {
+        "description": "Rodo boto delsą.",
+        "content": "Tikrinama...",
+        "bot_latency": "Boto delsa",
+        "api_latency": "API delsa",
+        "requested_by": "Užsakė {author}"
+    },
+    "lavalink": {
+        "description": "Rodo dabartinę Lavalink mazgo statistiką.",
+        "title": "Lavalink statistika",
+        "content": "Grotuvai: {players}\nGrojantys grotuvai: {playingPlayers}\nVeikimo laikas: {uptime}\nBranduoliai: {cores} branduolys(-iai)\nAtminties naudojimas: {used} / {reservable}\nSistemos apkrova: {systemLoad}%\nLavalink apkrova: {lavalinkLoad}%",
+        "page_info": "{index} puslapis iš {total}"
+    },
+    "invite": {
+        "description": "Gauti boto pakvietimo nuorodą.",
+        "content": "Galite mane pakviesti spustelėję žemiau esantį mygtuką. Turite pastebėjimų ar trikdžių? Prisijunkite prie pagalbos serverio!"
+    },
+    "help": {
+        "description": "Rodo pagalbos meniu.",
+        "options": {
+            "command": "Komanda, apie kurią norite gauti informacijos"
+        },
+        "content": "Sveiki! Aš esu `{bot}`, muzikos botas, sukurtas naudojant [`Lavamusic`](https://github.com/appujet/lavamusic) ir `Discord.js`.\nGalite naudoti `{prefix}help <komanda>`, kad gautumėte daugiau informacijos apie komandą.",
+        "title": "Pagalbos meniu",
+        "not_found": "Ši komanda `{cmdName}` neegzistuoja.",
+        "help_cmd": "**Aprašymas:** {description}\n**Naudojimas:** {usage}\n**Pavyzdžiai:** {examples}\n**Slapyvardžiai:** {aliases}\n**Kategorija:** {category}\n**Atsigavimo laikas:** {cooldown} sekundės\n**Leidimai:** {premUser}\n**Boto leidimai:** {premBot}\n**Tik kūrėjams:** {dev}\n**Slash komanda:** {slash}\n**Argumentai:** {args}\n**Grotuvas:** {player}\n**DJ:** {dj}\n**DJ leidimai:** {djPerm}\n**Balsas:** {voice}",
+        "footer": "Naudokite {prefix}help <komanda> daugiau informacijos apie komandą"
+    },
+    "botinfo": {
+        "description": "Informacija apie botą",
+        "content": "Boto informacija:\n- **Operacinė sistema**: {osInfo}\n- **Veikimo laikas**: {osUptime}\n- **Pagrindinio kompiuterio vardas**: {osHostname}\n- **CPU architektūra**: {cpuInfo}\n- **CPU naudojimas**: {cpuUsed}%\n- **Atminties naudojimas**: {memUsed}MB / {memTotal}GB\n- **Node versija**: {nodeVersion}\n- **Discord.js versija**: {discordJsVersion}\n- **Prisijungęs prie** {guilds} serverių, {channels} kanalų ir {users} vartotojų\n- **Iš viso komandų**: {commands}"
+    },
+    "about": {
+        "description": "Rodo informaciją apie botą",
+        "fields": {
+            "creator": "Kūrėjas",
+            "repository": "Saugykla",
+            "support": "Pagalba",
+            "description": "Jis tikrai norėjo sukurti savo pirmąjį atvirojo kodo projektą, kad įgytų daugiau programavimo patirties. Šiame projekte jam teko iššūkis sukurti projektą su mažiau klaidų. Tikimės, kad jums patiks naudoti LavaMusic!"
+        }
+    },
+    "dj": {
+        "description": "Valdyti DJ režimą ir susijusias roles",
+        "errors": {
+            "provide_role": "Pateikite rolę.",
+            "no_roles": "DJ rolių nėra.",
+            "invalid_subcommand": "Pateikite galiojančią subkomandą."
+        },
+        "messages": {
+            "role_exists": "DJ rolė <@&{roleId}> jau pridėta.",
+            "role_added": "DJ rolė <@&{roleId}> pridėta.",
+            "role_not_found": "DJ rolė <@&{roleId}> nebuvo pridėta.",
+            "role_removed": "DJ rolė <@&{roleId}> pašalinta.",
+            "all_roles_cleared": "Visos DJ rolės pašalintos.",
+            "toggle": "DJ režimas perjungtas į {status}."
+        },
+        "options": {
+            "add": "DJ rolė, kurią norite pridėti",
+            "remove": "DJ rolė, kurią norite pašalinti",
+            "clear": "Pašalina visas DJ roles",
+            "toggle": "Perjungia DJ rolę",
+            "role": "DJ rolė"
+        },
+        "subcommands": "Subkomandos"
+    },
+    "language": {
+        "description": "Konfigūruoti boto kalbą.",
+        "invalid_language": "Pateikite galiojančią kalbą. Pavyzdys: `en-US` anglų (JAV)\n\nPalaikomų kalbų sąrašą rasite [čia](https://discord.com/developers/docs/reference#locales)\n\n**Galimos kalbos:**\n{languages}",
+        "already_set": "Kalba jau nustatyta į `{language}`",
+        "not_set": "Kalba nenustatyta.",
+        "set": "Kalba nustatyta į `{language}`",
+        "reset": "Kalba atstatyta į numatytąją.",
+        "options": {
+            "set": "Nustatyti boto kalbą",
+            "language": "Kalba, kurią norite nustatyti",
+            "reset": "Pakeisti kalbą atgal į numatytąją"
+        }
+    },
+    "prefix": {
+        "description": "Rodo arba nustato boto prefiksą",
+        "errors": {
+            "prefix_too_long": "Prefiksas negali būti ilgesnis nei 3 simboliai."
+        },
+        "messages": {
+            "current_prefix": "Šio serverio prefiksas yra `{prefix}`",
+            "prefix_set": "Šio serverio prefiksas dabar yra `{prefix}`",
+            "prefix_reset": "Šio serverio prefiksas dabar yra `{prefix}`"
+        },
+        "options": {
+            "set": "Nustato prefiksą",
+            "prefix": "Prefiksas, kurį norite nustatyti",
+            "reset": "Atstato prefiksą į numatytąjį"
+        }
+    },
+    "setup": {
+        "description": "Nustato botą",
+        "errors": {
+            "channel_exists": "Dainų užsakymo kanalas jau egzistuoja.",
+            "channel_not_exists": "Dainų užsakymo kanalas neegzistuoja.",
+            "channel_delete_fail": "Nustatymų kanalas pašalintas iš duomenų bazės. Ištrinkite tekstinį kanalą rankiniu būdu."
+        },
+        "messages": {
+            "channel_created": "Dainų užsakymo kanalas sukurtas <#{channelId}>.",
+            "channel_deleted": "Dainų užsakymo kanalas pašalintas.",
+            "channel_info": "Dainų užsakymo kanalas yra <#{channelId}>."
+        },
+        "options": {
+            "create": "Sukuria dainų užsakymo kanalą",
+            "delete": "Ištrina dainų užsakymo kanalą",
+            "info": "Rodo dainų užsakymo kanalą"
+        }
+    },
+    "defaultvolume": {
+        "description": "Nustato numatytąjį boto garsumą šiame serveryje",
+        "options": {
+            "volume": "Numatytasis garsumas, kurį norite nustatyti (0-200)"
+        },
+        "messages": {
+            "current": "Dabartinis numatytasis garsumas šiame serveryje yra **{volume}**.",
+            "set": "`✅` | Numatytasis garsumas nustatytas į **{volume}**.",
+            "invalid_number": "Pateikite galiojantį skaičių.",
+            "too_low": "Garsumas negali būti mažesnis nei 0.",
+            "too_high": "Garsumas negali būti didesnis nei 200."
+        }
+    },
+    "8d": {
+        "description": "Perjungti 8D filtrą",
+        "messages": {
+            "filter_enabled": "`✅` | 8D filtras `ĮJUNGTAS`.",
+            "filter_disabled": "`✅` | 8D filtras `IŠJUNGTAS`."
+        }
+    },
+    "bassboost": {
+        "description": "Perjungti bassboost filtrą",
+        "options": {
+            "level": "Bassboost lygis"
+        },
+        "messages": {
+            "high": "`✅` | Aukštas bassboost filtras `ĮJUNGTAS`.",
+            "low": "`✅` | Žemas bassboost filtras `ĮJUNGTAS`.",
+            "medium": "`✅` | Vidutinis bassboost filtras `ĮJUNGTAS`.",
+            "off": "`✅` | Bassboost filtras `IŠJUNGTAS`.",
+            "invalid_level": "Pateikite galiojantį bassboost lygį. Galimi lygiai: `high`, `medium`, `low`, `off`."
+        }
+    },
+    "distortion": {
+        "description": "Perjungti iškraipymo filtrą",
+        "messages": {
+            "filter_enabled": "`✅` | Iškraipymo filtras `ĮJUNGTAS`.",
+            "filter_disabled": "`✅` | Iškraipymo filtras `IŠJUNGTAS`."
+        }
+    },
+    "karaoke": {
+        "description": "Perjungti karaoke filtrą",
+        "messages": {
+            "filter_enabled": "`✅` | Karaoke filtras `ĮJUNGTAS`.",
+            "filter_disabled": "`✅` | Karaoke filtras `IŠJUNGTAS`."
+        }
+    },
+    "lowpass": {
+        "description": "Perjungti žemų dažnių filtrą",
+        "messages": {
+            "filter_enabled": "`✅` | Žemų dažnių filtras `ĮJUNGTAS`.",
+            "filter_disabled": "`✅` | Žemų dažnių filtras `IŠJUNGTAS`."
+        }
+    },
+    "nightcore": {
+        "description": "Perjungti nightcore filtrą",
+        "messages": {
+            "filter_enabled": "`✅` | Nightcore filtras `ĮJUNGTAS`.",
+            "filter_disabled": "`✅` | Nightcore filtras `IŠJUNGTAS`."
+        }
+    },
+    "pitch": {
+        "description": "Perjungti aukščio filtrą",
+        "options": {
+            "pitch": "Aukščio vertė (0.5 - 5)"
+        },
+        "errors": {
+            "invalid_number": "Pateikite galiojantį skaičių nuo 0.5 iki 5."
+        },
+        "messages": {
+            "pitch_set": "`✅` | Aukštis nustatytas į **{pitch}**."
+        }
+    },
+    "rate": {
+        "description": "Pakeisti dainos tempą",
+        "options": {
+            "rate": "Tempo vertė (0.5 - 5)"
+        },
+        "errors": {
+            "invalid_number": "Pateikite galiojantį skaičių nuo 0.5 iki 5."
+        },
+        "messages": {
+            "rate_set": "`✅` | Tempas nustatytas į **{rate}**."
+        }
+    },
+    "reset": {
+        "description": "Atstato visus aktyvius filtrus",
+        "messages": {
+            "filters_reset": "`✅` | Filtrai atstatyti."
+        }
+    },
+    "rotation": {
+        "description": "Perjungti sukimosi filtrą",
+        "messages": {
+            "enabled": "`✅` | Sukimosi filtras `ĮJUNGTAS`.",
+            "disabled": "`✅` | Sukimosi filtras `IŠJUNGTAS`."
+        }
+    },
+    "speed": {
+        "description": "Pakeisti dainos greitį",
+        "options": {
+            "speed": "Greitis, kurį norite nustatyti (0.5 - 5)"
+        },
+        "messages": {
+            "invalid_number": "Pateikite galiojantį skaičių nuo 0.5 iki 5.",
+            "set_speed": "`✅` | Greitis nustatytas į **{speed}**."
+        }
+    },
+    "tremolo": {
+        "description": "Perjungti tremolo filtrą",
+        "messages": {
+            "enabled": "`✅` | Tremolo filtras `ĮJUNGTAS`.",
+            "disabled": "`✅` | Tremolo filtras `IŠJUNGTAS`."
+        }
+    },
+    "vibrato": {
+        "description": "Perjungti vibrato filtrą",
+        "messages": {
+            "enabled": "`✅` | Vibrato filtras `ĮJUNGTAS`.",
+            "disabled": "`✅` | Vibrato filtras `IŠJUNGTAS`."
+        }
+    },
+    "autoplay": {
+        "description": "Perjungia automatinio grojimo režimą.",
+        "messages": {
+            "enabled": "`✅` | Automatinis grojimas `ĮJUNGTAS`.",
+            "disabled": "`✅` | Automatinis grojimas `IŠJUNGTAS`."
+        }
+    },
+    "clearqueue": {
+        "description": "Išvalyti dabartinę eilę.",
+        "messages": {
+            "cleared": "Eilė išvalyta."
+        }
+    },
+    "grab": {
+        "description": "Išsaugoti grojamą dainą į savo DM.",
+        "loading": "Kraunama...",
+        "content": "**Trukmė:** {length}\n**Užsakė:** <@{requester}>\n**Nuoroda:** [Spustelėkite čia]({uri})",
+        "check_dm": "Patikrinkite savo DM.",
+        "dm_failed": "Nepavyko jums nusiųsti DM. Įsitikinkite, kad jūsų DM yra atviri."
+    },
+    "join": {
+        "description": "Prisijungia botą prie jūsų balso kanalo",
+        "already_connected": "Aš jau prisijungęs prie <#{channelId}>.",
+        "no_voice_channel": "Norėdami naudoti šią komandą, turite būti balso kanale.",
+        "joined": "Sėkmingai prisijungta prie <#{channelId}>."
+    },
+    "leave": {
+        "description": "Atjungia botą nuo balso kanalo",
+        "left": "Sėkmingai paliktas <#{channelId}>.",
+        "not_in_channel": "Nesu balso kanale."
+    },
+    "loop": {
+        "description": "Kartoti dabartinę dainą arba eilę",
+        "options": {
+            "mode": "Kartojimo režimas"
+        },
+        "messages": {
+            "looping_song": "**Dainos kartojimas.**",
+            "looping_queue": "**Eilės kartojimas.**",
+            "looping_off": "**Kartojimas dabar išjungtas.**",
+            "invalid_mode": "Neteisingas kartojimo režimas"
+        }
+    },
+    "lyrics": {
+        "description": "Rodyti grojamo takelio dainos žodžius",
+        "lyrics_for_track": "### Dainos žodžiai: [{trackTitle}]({trackUrl})",
+        "no_lyrics_on_page": "Šiame puslapyje dainos žodžių nerasta.",
+        "searching": "🔍 Ieškoma dainos žodžių takeliui **{trackTitle}**...",
+        "session_expired": "Sesijos laikas baigėsi. Naudokite komandą dar kartą, kad atnaujintumėte.",
+        "page_indicator": "{current} / {total} puslapis",
+        "artwork_description": "{trackTitle} viršelis",
+        "no_lyrics_available": "Dainos žodžiai neprieinami",
+        "button_subscribe": "📌 Užsiprenumeruoti Live Lyrics",
+        "button_unsubscribe": "📌 Atšaukti Live Lyrics prenumeratą",
+        "subscribed": "Užsiprenumeravote tiesioginio dainų tekstų atnaujinimus!",
+        "unsubscribed": "Atšaukėte tiesioginio dainų tekstų atnaujinimus.",
+        "errors": {
+            "no_results": "Šiam takeliui dainų žodžių nerasta.",
+            "lyrics_error": "Gaunant dainos žodžius įvyko klaida.",
+            "no_player_for_lyrics": "Negalima gauti dainos žodžių šiai dainai be aktyvaus grotuvo."
+        },
+        "options": {
+            "song": "Daina, kurios žodžių norite"
+        }
+    },
+    "nowplaying": {
+        "description": "Rodo dabar grojamą dainą",
+        "now_playing": "Dabar groja",
+        "track_info": "[{title}]({uri}) - Užsakė: <@{requester}>\n\n`{bar}`"
+    },
+    "pause": {
+        "description": "Sustabdo dabartinę dainą",
+        "successfully_paused": "Daina sėkmingai sustabdyta."
+    },
+    "play": {
+        "description": "Groja dainą iš YouTube, Spotify, URL ir kt.",
+        "options": {
+            "song": "Daina arba URL, kurį norite groti"
+        },
+        "loading": "Kraunama...",
+        "errors": {
+            "search_error": "Paieškos metu įvyko klaida.",
+            "no_results": "Rezultatų nerasta.",
+            "queue_too_long": "Eilė per ilga. Maksimalus ilgis yra {maxQueueSize} dainų.",
+            "playlist_too_long": "Grojaraštis per ilgas. Maksimalus ilgis yra {maxPlaylistSize} dainų."
+        },
+        "added_to_queue": "Pridėta [{title}]({uri}) į eilę.",
+        "added_playlist_to_queue": "Pridėta {length} dainų į eilę."
+    },
+    "playlocal": {
+        "description": "Groja vietinį garso failą",
+        "options": {
+            "file": "Garso failas, kurį norite groti"
+        },
+        "loading": "Kraunama...",
+        "errors": {
+            "empty_query": "Prisekite garso failą, kad galėtumėte jį groti.",
+            "invalid_format": "Galite groti tik MP3, WAV, OGG, FLAC, AAC arba M4A failus.",
+            "no_results": "Nepavyko groti garso failo. Jis gali būti sugadintas."
+        },
+        "added_to_queue": "Pridėta [{title}]({url}) į eilę"
+    },
+    "playnext": {
+        "description": "Prideda dainą į eilės pradžią",
+        "options": {
+            "song": "Daina, kurią norite groti"
+        },
+        "loading": "Kraunama...",
+        "errors": {
+            "search_error": "Paieškos metu įvyko klaida.",
+            "no_results": "Rezultatų nerasta.",
+            "queue_too_long": "Eilė per ilga. Maksimalus ilgis yra {maxQueueSize} dainų.",
+            "playlist_too_long": "Grojaraštis per ilgas. Maksimalus ilgis yra {maxPlaylistSize} dainų."
+        },
+        "added_to_play_next": "Pridėta [{title}]({uri}) groti kitą eilėje.",
+        "added_playlist_to_play_next": "Pridėta {length} dainų groti kitas eilėje."
+    },
+    "queue": {
+        "description": "Rodo dabartinę dainų eilę.",
+        "now_playing": "Dabar groja: [{title}]({uri}) - Užsakė: <@{requester}> - Trukmė: `{duration}`",
+        "live": "TIESIOGIAI",
+        "track_info": "{index}. [{title}]({uri}) - Užsakė: <@{requester}> - Trukmė: `{duration}`",
+        "title": "Eilė",
+        "page_info": "{index} puslapis iš {total}",
+        "duration": "Eilės trukmė: `{totalDuration}`"
+    },
+    "remove": {
+        "description": "Pašalina konkrečią dainą iš eilės",
+        "options": {
+            "song": "Dainos numeris, kurį norite pašalinti"
+        },
+        "errors": {
+            "no_songs": "Eilėje dainų nėra.",
+            "invalid_number": "Pateikite galiojantį dainos numerį."
+        },
+        "messages": {
+            "removed": "Pašalinta daina numeriu {songNumber} iš eilės."
+        }
+    },
+    "replay": {
+        "description": "Iš naujo groja dabartinį takelį",
+        "errors": {
+            "not_seekable": "Negalima iš naujo groti šio takelio, nes jis nėra prasukamas."
+        },
+        "messages": {
+            "replaying": "Iš naujo grojamas dabartinis takelis."
+        }
+    },
+    "resume": {
+        "description": "Atnaujina sustabdytą dainą",
+        "errors": {
+            "not_paused": "Grotuvas nėra sustabdytas."
+        },
+        "messages": {
+            "resumed": "Atnaujintas grotuvas."
+        }
+    },
+    "search": {
+        "description": "Ieškoti dainos",
+        "options": {
+            "song": "Daina, kurios ieškote"
+        },
+        "select": "Pasirinkite dainą iš sąrašo...",
+        "errors": {
+            "no_results": "Rezultatų nerasta.",
+            "no_results_title": "Paieškos rezultatų nerasta!",
+            "no_results_description": "Nepavyko rasti jokių dainų pagal jūsų užklausą. Pabandykite pakeisti raktinius žodžius arba pateikite nuorodą.",
+            "invalid_selection_title": "Neteisingas pasirinkimas!",
+            "invalid_selection_description": "Pasirinkta parinktis neteisinga. Pasirinkite dainos numerį iš sąrašo.",
+            "search_error": "Ieškant dainos įvyko klaida.",
+            "vc_connect_fail_title": "Klaida jungiantis prie balso kanalo",
+            "vc_connect_fail_description": "Nepavyko prisijungti prie jūsų balso kanalo. Įsitikinkite, kad turiu tinkamus leidimus."
+        },
+        "messages": {
+            "results_found": "Rasta **{count}** dainos.",
+            "select_prompt": "Pasirinkite numerį, kad pridėtumėte dainą į eilę.",
+            "page_info": "{currentPage} / {maxPages} puslapis",
+            "added_to_queue": "Daina **[{title}]({uri})** pridėta į eilę!",
+            "selection_timed_out_title": "Laikas baigėsi!",
+            "selection_timed_out_description": "Per nurodytą laiką daina nebuvo pasirinkta. Paieška atšaukta. Bandykite dar kartą.",
+            "selection_timed_out_short": "Pasirinkimo laikas baigėsi."
+        }
+    },
+    "seek": {
+        "description": "Persuka iki nurodyto laiko dainoje",
+        "options": {
+            "duration": "Trukmė, iki kurios norite persukti (pvz., 1m 30s)"
+        },
+        "errors": {
+            "invalid_format": "Neteisingas laiko formatas. Pavyzdžiai: seek 1m, seek 1h 30m",
+            "not_seekable": "Šis takelis nėra prasukamas.",
+            "beyond_duration": "Negalima persukti toliau nei dainos trukmė {length}."
+        },
+        "messages": {
+            "seeked_to": "Persukta iki {duration}"
+        }
+    },
+    "shuffle": {
+        "description": "Sumaišo eilę",
+        "messages": {
+            "shuffled": "Eilė sumaišyta."
+        },
+        "errors": {
+            "fairplay": "Fairplay režimas įjungtas. Negalite maišyti eilės."
+        }
+    },
+    "skip": {
+        "description": "Praleidžia dabartinę dainą",
+        "messages": {
+            "skipped": "Praleista [{title}]({uri})."
+        }
+    },
+    "skipto": {
+        "description": "Praleidžia iki konkrečios dainos eilėje",
+        "options": {
+            "number": "Dainos numeris, iki kurio norite praleisti"
+        },
+        "errors": {
+            "invalid_number": "Pateikite galiojantį skaičių."
+        },
+        "messages": {
+            "skipped_to": "Praleista iki dainos numeriu {number}."
+        }
+    },
+    "move": {
+        "description": "Pakeisti takelio poziciją eilėje",
+        "options": {
+            "from": "Takelio, kurį norite perkelti, pozicija",
+            "to": "Pozicija, į kurią norite perkelti takelį"
+        },
+        "errors": {
+            "no_tracks": "Eilėje takelių nėra.",
+            "invalid_usage": "Neteisingas naudojimas. Pateikite pozicijas 'iš' ir 'į'.",
+            "invalid_numbers": "Pateikite galiojančias takelių pozicijas.",
+            "invalid_positions": "Pateikite galiojančias takelių pozicijas eilės ribose.",
+            "same_position": "Pozicijos 'iš' ir 'į' yra tos pačios."
+        },
+        "messages": {
+            "moved": "Perkelta **{title}** iš pozicijos {from} į {to}."
+        }
+    },
+    "stop": {
+        "description": "Sustabdo muziką ir išvalo eilę",
+        "messages": {
+            "stopped": "Muzika sustabdyta ir eilė išvalyta."
+        }
+    },
+    "volume": {
+        "description": "Nustato grotuvo garsumą",
+        "options": {
+            "number": "Garsumas, kurį norite nustatyti (0-200)"
+        },
+        "messages": {
+            "invalid_number": "Pateikite galiojantį skaičių.",
+            "too_low": "Garsumas negali būti mažesnis nei 0.",
+            "too_high": "Garsumas negali būti didesnis nei 200. Norite patys apkursti ar sugadinti garsiakalbius? Hmmm, nemanau, kad tai gera idėja.",
+            "set": "Garsumas nustatytas į {volume}"
+        }
+    },
+    "addsong": {
+        "description": "Prideda dainą į išsaugotą grojaraštį",
+        "options": {
+            "playlist": "Grojaraštis, į kurį norite pridėti",
+            "song": "Daina, kurią norite pridėti"
+        },
+        "messages": {
+            "no_playlist": "Pateikite grojaraštį",
+            "no_song": "Pateikite dainą",
+            "playlist_not_found": "Toks grojaraštis neegzistuoja",
+            "no_songs_found": "Dainų nerasta",
+            "added": "Pridėta {count} dainų į {playlist}"
+        }
+    },
+    "create": {
+        "description": "Sukuria naują grojaraštį.",
+        "options": {
+            "name": "Grojaraščio pavadinimas"
+        },
+        "messages": {
+            "name_too_long": "Grojaraščio pavadinimas gali būti iki 50 simbolių ilgio.",
+            "playlist_exists": "Grojaraštis tokiu pavadinimu jau egzistuoja. Naudokite kitą pavadinimą.",
+            "playlist_created": "Grojaraštis **{name}** sukurtas.",
+            "name_empty": "Turite nurodyti grojaraščio pavadinimą."
+        }
+    },
+    "delete": {
+        "description": "Ištrina grojaraštį",
+        "options": {
+            "playlist": "Grojaraštis, kurį norite ištrinti"
+        },
+        "messages": {
+            "playlist_not_found": "Toks grojaraštis neegzistuoja.",
+            "playlist_deleted": "Ištrintas grojaraštis **{playlistName}**."
+        }
+    },
+    "list": {
+        "description": "Pateikia visus vartotojo grojaraščius",
+        "options": {
+            "user": "Vartotojas, kurio grojaraščius norite gauti"
+        },
+        "messages": {
+            "no_playlists": "Šis vartotojas neturi grojaraščių.",
+            "your": "Jūsų",
+            "playlists_title": "Vartotojo {username} grojaraščiai",
+            "error": "Gaunant grojaraščius įvyko klaida.",
+            "invalid_username": "Neteisingas vartotojo vardas arba vartotojas nerastas.",
+            "invalid_userid": "Neteisingas vartotojo ID."
+        }
+    },
+    "load": {
+        "description": "Įkelia išsaugotą grojaraštį į eilę.",
+        "options": {
+            "playlist": "Grojaraštis, kurį norite įkelti"
+        },
+        "messages": {
+            "playlist_not_exist": "Toks grojaraštis neegzistuoja.",
+            "playlist_empty": "Šis grojaraštis yra tuščias.",
+            "playlist_loaded": "Įkelta `{name}` su `{count}` dainų.",
+            "no_lavalink_nodes": "Nėra galimų Lavalink mazgų grojaraščiui įkelti."
+        }
+    },
+    "removesong": {
+        "description": "Pašalina dainą iš grojaraščio",
+        "options": {
+            "playlist": "Grojaraštis, iš kurio norite pašalinti",
+            "song": "Daina, kurią norite pašalinti"
+        },
+        "messages": {
+            "provide_playlist": "Pateikite grojaraštį.",
+            "provide_song": "Pateikite dainą.",
+            "playlist_not_exist": "Toks grojaraštis neegzistuoja.",
+            "song_not_found": "Atitinkamos dainos nerasta.",
+            "song_removed": "Pašalinta {song} iš {playlist}.",
+            "error_occurred": "Šalinant dainą įvyko klaida."
+        }
+    },
+    "steal": {
+        "description": "Pavagia grojaraštį iš kito vartotojo ir prideda jį prie jūsų grojaraščių",
+        "options": {
+            "playlist": "Grojaraštis, kurį norite pavogti",
+            "user": "Vartotojas, iš kurio norite pavogti grojaraštį"
+        },
+        "messages": {
+            "provide_playlist": "Pateikite grojaraščio pavadinimą.",
+            "provide_user": "Paminėkite vartotoją.",
+            "playlist_not_exist": "Tokio grojaraščio pas nurodytą vartotoją nėra.",
+            "playlist_exists": "Jūs jau turite grojaraštį pavadinimu `{playlist}`.",
+            "playlist_stolen": "Sėkmingai pavogtas grojaraštis `{playlist}` iš {user}.",
+            "error_occurred": "Vagiant grojaraštį įvyko klaida."
+        }
+    },
+    "movenode": {
+        "description": "Perkelti grotuvus į kitą Lavalink mazgą",
+        "options": {
+            "node": "Mazgo ID, į kurį norite perkelti grotuvus"
+        },
+        "messages": {
+            "no_player": "Šiame serveryje nėra aktyvaus muzikos grotuvo.",
+            "no_available_nodes": "Nėra galimų mazgų, į kuriuos būtų galima perkelti.",
+            "available_nodes_title": "Galimi mazgai",
+            "current_node": "Dabartinis mazgas",
+            "available_nodes": "Galimi mazgai",
+            "usage_hint": "Naudojimas: movenode <nodeId>",
+            "node_not_found": "Mazgas `{node}` nerastas.",
+            "node_not_connected": "Mazgas `{node}` nėra prijungtas.",
+            "same_node": "Grotuvas jau yra mazge `{node}`.",
+            "moving": "Grotuvas perkeliamas iš `{from}` į `{to}`...",
+            "success_title": "Grotuvas sėkmingai perkeltas",
+            "success_description": "Grotuvas perkeltas iš `{from}` į `{to}`.",
+            "error": "Nepavyko perkelti grotuvo: {error}",
+            "moving_all_players": "Visi grotuvai perkeliami į mazgą `{node}`...",
+            "results_title": "MoveNode rezultatai",
+            "moved_players": "**Perkelti grotuvai serveriuose:**\n{list}",
+            "guild_move": "• `{guildId}` ({from} → {to})",
+            "failed_moves": "**Nepavyko perkelti grotuvų serveriuose:**\n{list}",
+            "guild_move_failed": "• `{guildId}`: {error}",
+            "no_players_moved": "Grotuvų perkelti nereikėjo.",
+            "unknown_error": "Nežinoma klaida",
+            "no_players": "Nėra grotuvų, kuriuos būtų galima perkelti."
+        }
+    }
+}
