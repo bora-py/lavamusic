@@ -1,0 +1,639 @@
+{
+    "247": {
+        "description": "Nastavit bota, aby zůstal v hlasovém kanálu",
+        "errors": {
+            "not_in_voice": "K použití tohoto příkazu musíte být v hlasovém kanálu.",
+            "generic": "Při pokusu o provedení tohoto příkazu došlo k chybě."
+        },
+        "messages": {
+            "disabled": "`✅` | Režim 24/7 byl `ZAKÁZÁN`.",
+            "enabled": "`✅` | Režim 24/7 byl `POVOLEN`."
+        }
+    },
+    "fairplay": {
+        "description": "Nastavit bota, aby přehrával hudbu spravedlivě mezi uživateli.",
+        "errors": {
+            "not_in_voice": "K použití tohoto příkazu musíte být v hlasovém kanálu.",
+            "generic": "Při pokusu o provedení tohoto příkazu došlo k chybě."
+        },
+        "messages": {
+            "disabled": "`✅` | Režim Fairplay byl `ZAKÁZÁN`.",
+            "enabled": "`✅` | Režim Fairplay byl `POVOLEN`."
+        }
+    },
+    "ping": {
+        "description": "Zobrazí latenci bota.",
+        "content": "Pinguje se...",
+        "bot_latency": "Latence bota",
+        "api_latency": "Latence API",
+        "requested_by": "Vyžádal {author}"
+    },
+    "lavalink": {
+        "description": "Zobrazí aktuální statistiky uzlu Lavalink.",
+        "title": "Statistiky Lavalinku",
+        "content": "Hráč: {players}\nPřehrávající hráči: {playingPlayers}\nDoba běhu: {uptime}\nJádra: {cores} jádra\nVyužití paměti: {used} / {reservable}\nZatížení systému: {systemLoad}%\nZatížení Lavalinku: {lavalinkLoad}%",
+        "page_info": "Stránka {index} z {total}"
+    },
+    "invite": {
+        "description": "Získejte odkaz na pozvání bota.",
+        "content": "Můžete mě pozvat kliknutím na tlačítko níže. Nějaké chyby nebo výpadky? Připojte se k support serveru!"
+    },
+    "help": {
+        "description": "Zobrazí nápovědu.",
+        "options": {
+            "command": "Příkaz, o kterém chcete získat informace"
+        },
+        "content": "Ahoj! Jsem `{bot}`, hudební bot vytvořený pomocí [`Lavamusic`](https://github.com/appujet/lavamusic) a `Discord.js`.\nMůžete použít `{prefix}help <příkaz>` pro získání více informací o příkazu.",
+        "title": "Nápověda",
+        "not_found": "Tento příkaz `{cmdName}` neexistuje.",
+        "help_cmd": "**Popis:** {description}\n**Použití:** {usage}\n**Příklady:** {examples}\n**Aliasy:** {aliases}\n**Kategorie:** {category}\n**Cooldown:** {cooldown} sekund\n**Oprávnění:** {premUser}\n**Oprávnění bota:** {premBot}\n**Pouze pro vývojáře:** {dev}\n**Slash příkaz:** {slash}\n**Argumenty:** {args}\n**Hráč:** {player}\n**DJ:** {dj}\n**DJ oprávnění:** {djPerm}\n**Hlas:** {voice}",
+        "footer": "Použijte {prefix}help <příkaz> pro více informací o příkazu"
+    },
+    "botinfo": {
+        "description": "Informace o botovi",
+        "content": "Informace o botovi:\n- **Operační systém**: {osInfo}\n- **Doba běhu**: {osUptime}\n- **Hostname**: {osHostname}\n- **Architektura CPU**: {cpuInfo}\n- **Využití CPU**: {cpuUsed}%\n- **Využití paměti**: {memUsed}MB / {memTotal}GB\n- **Verze Node**: {nodeVersion}\n- **Verze Discord.js**: {discordJsVersion}\n- **Připojeno k** {guilds} serverům, {channels} kanálům a {users} uživatelům\n- **Celkem příkazů**: {commands}"
+    },
+    "about": {
+        "description": "Zobrazí informace o botovi",
+        "fields": {
+            "creator": "Tvůrce",
+            "repository": "Repozitář",
+            "support": "Podpora",
+            "description": "Opravdu chtěl vytvořit svůj první open source projekt pro více zkušeností s programováním. V tomto projektu byl vyzván, aby vytvořil projekt s méně chybami. Doufáme, že se vám bude LavaMusic líbit!"
+        }
+    },
+    "dj": {
+        "description": "Správa režimu DJ a přidružených rolí",
+        "errors": {
+            "provide_role": "Uveďte prosím roli.",
+            "no_roles": "Role DJ je prázdná.",
+            "invalid_subcommand": "Uveďte prosím platný podpříkaz."
+        },
+        "messages": {
+            "role_exists": "Role DJ <@&{roleId}> již byla přidána.",
+            "role_added": "Role DJ <@&{roleId}> byla přidána.",
+            "role_not_found": "Role DJ <@&{roleId}> nebyla přidána.",
+            "role_removed": "Role DJ <@&{roleId}> byla odstraněna.",
+            "all_roles_cleared": "Všechny role DJ byly odstraněny.",
+            "toggle": "Režim DJ byl přepnut na {status}."
+        },
+        "options": {
+            "add": "Role DJ, kterou chcete přidat",
+            "remove": "Role DJ, kterou chcete odstranit",
+            "clear": "Vymaže všechny role DJ",
+            "toggle": "Přepne roli DJ",
+            "role": "Role DJ"
+        },
+        "subcommands": "Podpříkazy"
+    },
+    "language": {
+        "description": "Konfigurovat jazyk bota.",
+        "invalid_language": "Uveďte prosím platný jazyk. Příklad: `en-US` pro angličtinu (USA)\n\nSeznam podporovaných jazyků naleznete [zde](https://discord.com/developers/docs/reference#locales)\n\n**Dostupné jazyky:**\n{languages}",
+        "already_set": "Jazyk je již nastaven na `{language}`",
+        "not_set": "Jazyk není nastaven.",
+        "set": "Jazyk byl nastaven na `{language}`",
+        "reset": "Jazyk byl resetován na výchozí jazyk.",
+        "options": {
+            "set": "Nastavit jazyk bota",
+            "language": "Jazyk, který chcete nastavit",
+            "reset": "Změnit jazyk zpět na výchozí"
+        }
+    },
+    "prefix": {
+        "description": "Zobrazí nebo nastaví prefix bota",
+        "errors": {
+            "prefix_too_long": "Prefix nemůže být delší než 3 znaky."
+        },
+        "messages": {
+            "current_prefix": "Prefix pro tento server je `{prefix}`",
+            "prefix_set": "Prefix pro tento server je nyní `{prefix}`",
+            "prefix_reset": "Prefix pro tento server je nyní `{prefix}`"
+        },
+        "options": {
+            "set": "Nastaví prefix",
+            "prefix": "Prefix, který chcete nastavit",
+            "reset": "Resetuje prefix na výchozí"
+        }
+    },
+    "setup": {
+        "description": "Nastaví bota",
+        "errors": {
+            "channel_exists": "Kanál pro žádosti o skladby již existuje.",
+            "channel_not_exists": "Kanál pro žádosti o skladby neexistuje.",
+            "channel_delete_fail": "Kanál pro nastavení byl odstraněn z databáze. Smažte prosím textový kanál ručně."
+        },
+        "messages": {
+            "channel_created": "Kanál pro žádosti o skladby byl vytvořen v <#{channelId}>.",
+            "channel_deleted": "Kanál pro žádosti o skladby byl odstraněn.",
+            "channel_info": "Kanál pro žádosti o skladby je <#{channelId}>."
+        },
+        "options": {
+            "create": "Vytvoří kanál pro žádosti o skladby",
+            "delete": "Smaže kanál pro žádosti o skladby",
+            "info": "Zobrazí kanál pro žádosti o skladby"
+        }
+    },
+    "defaultvolume": {
+        "description": "Nastaví výchozí hlasitost pro bota na tomto serveru",
+        "options": {
+            "volume": "Výchozí hlasitost, kterou chcete nastavit (0-200)"
+        },
+        "messages": {
+            "current": "Aktuální výchozí hlasitost pro tento server je **{volume}**.",
+            "set": "`✅` | Výchozí hlasitost byla nastavena na **{volume}**.",
+            "invalid_number": "Uveďte prosím platné číslo.",
+            "too_low": "Hlasitost nemůže být nižší než 0.",
+            "too_high": "Hlasitost nemůže být vyšší než 200."
+        }
+    },
+    "8d": {
+        "description": "Přepnout 8D filtr",
+        "messages": {
+            "filter_enabled": "`✅` | 8D filtr byl `POVOLEN`.",
+            "filter_disabled": "`✅` | 8D filtr byl `ZAKÁZÁN`."
+        }
+    },
+    "bassboost": {
+        "description": "Přepnout bassboost filtr",
+        "options": {
+            "level": "Úroveň bassboostu, kterou chcete nastavit"
+        },
+        "messages": {
+            "high": "`✅` | Vysoký bassboost filtr byl `POVOLEN`.",
+            "low": "`✅` | Nízký bassboost filtr byl `POVOLEN`.",
+            "medium": "`✅` | Střední bassboost filtr byl `POVOLEN`.",
+            "off": "`✅` | Bassboost filtr byl `ZAKÁZÁN`.",
+            "invalid_level": "Uveďte prosím platnou úroveň bassboostu. Dostupné úrovně: `high`, `medium`, `low`, `off`."
+        }
+    },
+    "distortion": {
+        "description": "Přepnout distortion filtr",
+        "messages": {
+            "filter_enabled": "`✅` | Distortion filtr byl `POVOLEN`.",
+            "filter_disabled": "`✅` | Distortion filtr byl `ZAKÁZÁN`."
+        }
+    },
+    "karaoke": {
+        "description": "Přepnout karaoke filtr",
+        "messages": {
+            "filter_enabled": "`✅` | Karaoke filtr byl `POVOLEN`.",
+            "filter_disabled": "`✅` | Karaoke filtr byl `ZAKÁZÁN`."
+        }
+    },
+    "lowpass": {
+        "description": "Přepnout lowpass filtr",
+        "messages": {
+            "filter_enabled": "`✅` | Lowpass filtr byl `POVOLEN`.",
+            "filter_disabled": "`✅` | Lowpass filtr byl `ZAKÁZÁN`."
+        }
+    },
+    "nightcore": {
+        "description": "Přepnout nightcore filtr",
+        "messages": {
+            "filter_enabled": "`✅` | Nightcore filtr byl `POVOLEN`.",
+            "filter_disabled": "`✅` | Nightcore filtr byl `ZAKÁZÁN`."
+        }
+    },
+    "pitch": {
+        "description": "Přepnout pitch filtr",
+        "options": {
+            "pitch": "Hodnota pro nastavení výšky tónu (0.5 - 5)"
+        },
+        "errors": {
+            "invalid_number": "Uveďte prosím platné číslo mezi 0.5 a 5."
+        },
+        "messages": {
+            "pitch_set": "`✅` | Výška tónu byla nastavena na **{pitch}**."
+        }
+    },
+    "rate": {
+        "description": "Změnit rychlost skladby",
+        "options": {
+            "rate": "Hodnota pro nastavení rychlosti (0.5 - 5)"
+        },
+        "errors": {
+            "invalid_number": "Uveďte prosím platné číslo mezi 0.5 a 5."
+        },
+        "messages": {
+            "rate_set": "`✅` | Rychlost byla nastavena na **{rate}**."
+        }
+    },
+    "reset": {
+        "description": "Resetuje všechny aktivní filtry",
+        "messages": {
+            "filters_reset": "`✅` | Filtry byly resetovány."
+        }
+    },
+    "rotation": {
+        "description": "Přepnout rotation filtr",
+        "messages": {
+            "enabled": "`✅` | Rotation filtr byl `POVOLEN`.",
+            "disabled": "`✅` | Rotation filtr byl `ZAKÁZÁN`."
+        }
+    },
+    "speed": {
+        "description": "Změnit rychlost skladby",
+        "options": {
+            "speed": "Rychlost, kterou chcete nastavit (0.5 - 5)"
+        },
+        "messages": {
+            "invalid_number": "Uveďte prosím platné číslo mezi 0.5 a 5.",
+            "set_speed": "`✅` | Rychlost byla nastavena na **{speed}**."
+        }
+    },
+    "tremolo": {
+        "description": "Přepnout tremolo filtr",
+        "messages": {
+            "enabled": "`✅` | Tremolo filtr byl `POVOLEN`.",
+            "disabled": "`✅` | Tremolo filtr byl `ZAKÁZÁN`."
+        }
+    },
+    "vibrato": {
+        "description": "Přepnout vibrato filtr",
+        "messages": {
+            "enabled": "`✅` | Vibrato filtr byl `POVOLEN`.",
+            "disabled": "`✅` | Vibrato filtr byl `ZAKÁZÁN`."
+        }
+    },
+    "autoplay": {
+        "description": "Přepíná režim autoplay.",
+        "messages": {
+            "enabled": "`✅` | Autoplay byl `POVOLEN`.",
+            "disabled": "`✅` | Autoplay byl `ZAKÁZÁN`."
+        }
+    },
+    "clearqueue": {
+        "description": "Vymaže aktuální frontu.",
+        "messages": {
+            "cleared": "Fronta byla vymazána."
+        }
+    },
+    "grab": {
+        "description": "Uloží aktuální skladbu do vašich DM.",
+        "loading": "Načítání...",
+        "content": "**Délka:** {length}\n**Vyžádal:** <@{requester}>\n**Odkaz:** [Klikněte zde]({uri})",
+        "check_dm": "Zkontrolujte prosím své DM.",
+        "dm_failed": "Nepodařilo se mi vám poslat DM. Ujistěte se, že máte otevřené DM."
+    },
+    "join": {
+        "description": "Připojí bota do vašeho hlasového kanálu",
+        "already_connected": "Již jsem připojen k <#{channelId}>.",
+        "no_voice_channel": "K použití tohoto příkazu musíte být v hlasovém kanálu.",
+        "joined": "Úspěšně připojen k <#{channelId}>."
+    },
+    "leave": {
+        "description": "Odpojí bota z hlasového kanálu",
+        "left": "Úspěšně opuštěn <#{channelId}>.",
+        "not_in_channel": "Nejsem v hlasovém kanálu."
+    },
+    "loop": {
+        "description": "Opakovat aktuální skladbu nebo frontu",
+        "options": {
+            "mode": "Režim smyčky, který chcete nastavit"
+        },
+        "messages": {
+            "looping_song": "**Smyčka skladby zapnuta.**",
+            "looping_queue": "**Smyčka fronty zapnuta.**",
+            "looping_off": "**Smyčka je nyní vypnuta.**",
+            "invalid_mode": "Neplatný režim smyčky"
+        }
+    },
+    "lyrics": {
+        "description": "Zobrazí text aktuální skladby",
+        "lyrics_for_track": "### Text pro: [{trackTitle}]({trackUrl})",
+        "no_lyrics_on_page": "Na této stránce nebyly nalezeny žádné texty.",
+        "searching": "🔍 Hledání textu pro **{trackTitle}**...",
+        "session_expired": "Relace vypršela. Pro obnovení použijte příkaz znovu.",
+        "page_indicator": "Stránka {current}/{total}",
+        "artwork_description": "Obal pro {trackTitle}",
+        "no_lyrics_available": "Text není k dispozici",
+        "button_subscribe": "📌 Přihlásit se k odběru Live Lyrics",
+        "button_unsubscribe": "📌 Odhlásit se z odběru Live Lyrics",
+        "subscribed": "Přihlásili jste se k odběru aktualizací textů naživo!",
+        "unsubscribed": "Odhlásili jste se z odběru aktualizací textů naživo.",
+        "errors": {
+            "no_results": "Pro aktuální skladbu nebyly nalezeny žádné texty.",
+            "lyrics_error": "Při získávání textu došlo k chybě.",
+            "no_player_for_lyrics": "Bez aktivního přehrávače nelze získat text pro tuto skladbu."
+        },
+        "options": {
+            "song": "Skladba, pro kterou chcete získat text"
+        }
+    },
+    "nowplaying": {
+        "description": "Zobrazí aktuálně přehrávanou skladbu",
+        "now_playing": "Nyní hraje",
+        "track_info": "[{title}]({uri}) - Vyžádal: <@{requester}>\n\n`{bar}`"
+    },
+    "pause": {
+        "description": "Pozastaví aktuální skladbu",
+        "successfully_paused": "Skladba byla úspěšně pozastavena."
+    },
+    "play": {
+        "description": "Přehrává skladbu z YouTube, Spotify, URL atd.",
+        "options": {
+            "song": "Skladba nebo URL, kterou chcete přehrát"
+        },
+        "loading": "Načítání...",
+        "errors": {
+            "search_error": "Při vyhledávání došlo k chybě.",
+            "no_results": "Nebyly nalezeny žádné výsledky.",
+            "queue_too_long": "Fronta je příliš dlouhá. Maximální délka je {maxQueueSize} skladeb.",
+            "playlist_too_long": "Playlist je příliš dlouhý. Maximální délka je {maxPlaylistSize} skladeb."
+        },
+        "added_to_queue": "Přidáno [{title}]({uri}) do fronty.",
+        "added_playlist_to_queue": "Přidáno {length} skladeb do fronty."
+    },
+    "playlocal": {
+        "description": "Přehrává lokální audio soubor",
+        "options": {
+            "file": "Audio soubor, který chcete přehrát"
+        },
+        "loading": "Načítání...",
+        "errors": {
+            "empty_query": "Připojte prosím audio soubor k přehrání.",
+            "invalid_format": "Můžete přehrávat pouze soubory MP3, WAV, OGG, FLAC, AAC nebo M4A.",
+            "no_results": "Nepodařilo se přehrát audio soubor. Může být poškozen."
+        },
+        "added_to_queue": "Přidáno [{title}]({url}) do fronty"
+    },
+    "playnext": {
+        "description": "Přidá skladbu na začátek fronty",
+        "options": {
+            "song": "Skladba, kterou chcete přehrát"
+        },
+        "loading": "Načítání...",
+        "errors": {
+            "search_error": "Při vyhledávání došlo k chybě.",
+            "no_results": "Nebyly nalezeny žádné výsledky.",
+            "queue_too_long": "Fronta je příliš dlouhá. Maximální délka je {maxQueueSize} skladeb.",
+            "playlist_too_long": "Playlist je příliš dlouhý. Maximální délka je {maxPlaylistSize} skladeb."
+        },
+        "added_to_play_next": "Skadba [{title}]({uri}) byla přidána jako další v pořadí.",
+        "added_playlist_to_play_next": "Bylo přidáno {length} skladeb jako další v pořadí."
+    },
+    "queue": {
+        "description": "Zobrazí aktuální frontu skladeb.",
+        "now_playing": "Nyní hraje: [{title}]({uri}) - Vyžádal: <@{requester}> - Délka: `{duration}`",
+        "live": "ŽIVĚ",
+        "track_info": "{index}. [{title}]({uri}) - Vyžádal: <@{requester}> - Délka: `{duration}`",
+        "title": "Fronta",
+        "page_info": "Stránka {index} z {total}",
+        "duration": "Celková délka fronty: `{totalDuration}`"
+    },
+    "remove": {
+        "description": "Odstraní konkrétní skladbu z fronty",
+        "options": {
+            "song": "Číslo skladby, kterou chcete odstranit"
+        },
+        "errors": {
+            "no_songs": "Ve frontě nejsou žádné skladby.",
+            "invalid_number": "Uveďte prosím platné číslo skladby."
+        },
+        "messages": {
+            "removed": "Skladba číslo {songNumber} byla odstraněna z fronty."
+        }
+    },
+    "replay": {
+        "description": "Znovu přehraje aktuální skladbu",
+        "errors": {
+            "not_seekable": "Tuto skladbu nelze přehrát znovu, protože v ní nelze vyhledávat."
+        },
+        "messages": {
+            "replaying": "Znovu přehrávám aktuální skladbu."
+        }
+    },
+    "resume": {
+        "description": "Obnoví pozastavenou skladbu",
+        "errors": {
+            "not_paused": "Přehrávač není pozastaven."
+        },
+        "messages": {
+            "resumed": "Přehrávač byl obnoven."
+        }
+    },
+    "search": {
+        "description": "Hledat skladbu",
+        "options": {
+            "song": "Skladba, kterou hledáte"
+        },
+        "select": "Vyberte skladbu ze seznamu...",
+        "errors": {
+            "no_results": "Nebyly nalezeny žádné výsledky.",
+            "no_results_title": "Nebyly nalezeny žádné výsledky vyhledávání!",
+            "no_results_description": "Nepodařilo se mi najít žádné skladby odpovídající vašemu dotazu. Zkuste změnit klíčová slova nebo vložit odkaz.",
+            "invalid_selection_title": "Neplatný výběr!",
+            "invalid_selection_description": "Vybraná možnost je neplatná. Vyberte prosím číslo skladby ze seznamu.",
+            "search_error": "Při vyhledávání skladby došlo k chybě.",
+            "vc_connect_fail_title": "Chyba připojení k hlasovému kanálu",
+            "vc_connect_fail_description": "Nepodařilo se mi připojit k vašemu hlasovému kanálu. Ujistěte se, že mám správná oprávnění."
+        },
+        "messages": {
+            "results_found": "Nalezeno **{count}** skladeb.",
+            "select_prompt": "Vyberte číslo pro přidání skladby do fronty.",
+            "page_info": "Stránka {currentPage}/{maxPages}",
+            "added_to_queue": "Skladba **[{title}]({uri})** byla přidána do fronty!",
+            "selection_timed_out_title": "Čas vypršel!",
+            "selection_timed_out_description": "V daném čase nebyla vybrána žádná skladba. Vyhledávání bylo zrušeno. Zkuste to prosím znovu.",
+            "selection_timed_out_short": "Čas na výběr vypršel."
+        }
+    },
+    "seek": {
+        "description": "Přetočí na konkrétní čas ve skladbě",
+        "options": {
+            "duration": "Čas, na který se má přetocit (např. 1m 30s)"
+        },
+        "errors": {
+            "invalid_format": "Neplatný formát času. Příklady: seek 1m, seek 1h 30m",
+            "not_seekable": "Tato skladba neumožňuje přetáčení.",
+            "beyond_duration": "Nelze přetáčet za délku skladby {length}."
+        },
+        "messages": {
+            "seeked_to": "Přetočeno na {duration}"
+        }
+    },
+    "shuffle": {
+        "description": "Zamíchá frontu",
+        "messages": {
+            "shuffled": "Fronta byla zamíchána."
+        },
+        "errors": {
+            "fairplay": "Režim Fairplay je povolen. Frontu nelze zamíchat."
+        }
+    },
+    "skip": {
+        "description": "Přeskočí aktuální skladbu",
+        "messages": {
+            "skipped": "Skladba [{title}]({uri}) byla přeskočena."
+        }
+    },
+    "skipto": {
+        "description": "Přeskočí na konkrétní skladbu ve frontě",
+        "options": {
+            "number": "Číslo skladby, na kterou chcete přeskočit"
+        },
+        "errors": {
+            "invalid_number": "Uveďte prosím platné číslo."
+        },
+        "messages": {
+            "skipped_to": "Přeskočeno na skladbu číslo {number}."
+        }
+    },
+    "move": {
+        "description": "Přesunout pozici skladby ve frontě",
+        "options": {
+            "from": "Pozice skladby, kterou chcete přesunout",
+            "to": "Pozice, na kterou chcete skladbu přesunout"
+        },
+        "errors": {
+            "no_tracks": "Ve frontě nejsou žádné skladby.",
+            "invalid_usage": "Neplatné použití. Uveďte prosím pozice 'z' a 'do'.",
+            "invalid_numbers": "Uveďte prosím platné pozice skladeb.",
+            "invalid_positions": "Uveďte prosím platné pozice skladeb v rámci fronty.",
+            "same_position": "Pozice 'z' a 'do' jsou stejné."
+        },
+        "messages": {
+            "moved": "Skladba **{title}** byla přesunuta z pozice {from} na {to}."
+        }
+    },
+    "stop": {
+        "description": "Zastaví hudbu a vymaže frontu",
+        "messages": {
+            "stopped": "Hudba byla zastavena a fronta vymazána."
+        }
+    },
+    "volume": {
+        "description": "Nastaví hlasitost přehrávače",
+        "options": {
+            "number": "Hlasitost, kterou chcete nastavit (0-200)"
+        },
+        "messages": {
+            "invalid_number": "Uveďte prosím platné číslo.",
+            "too_low": "Hlasitost nemůže být nižší než 0.",
+            "too_high": "Hlasitost nemůže být vyšší než 200. Chcete si požkodit sluch nebo reproduktory? Hmmm, nemyslím si, že je to dobrý nápad.",
+            "set": "Hlasitost nastavena na {volume}"
+        }
+    },
+    "addsong": {
+        "description": "Přidá skladbu do uloženého playlistu",
+        "options": {
+            "playlist": "Playlist, do kterého chcete skladbu přidat",
+            "song": "Skladba, kterou chcete přidat"
+        },
+        "messages": {
+            "no_playlist": "Uveďte prosím playlist",
+            "no_song": "Uveďte prosím skladbu",
+            "playlist_not_found": "Tento playlist neexistuje",
+            "no_songs_found": "Nebyly nalezeny žádné skladby",
+            "added": "Přidáno {count} skladeb do playlistu {playlist}"
+        }
+    },
+    "create": {
+        "description": "Vytvoří nový playlist.",
+        "options": {
+            "name": "Název playlistu"
+        },
+        "messages": {
+            "name_too_long": "Názvy playlistů mohou mít maximálně 50 znaků.",
+            "playlist_exists": "Playlist s tímto názvem již existuje. Použijte prosím jiný název.",
+            "playlist_created": "Playlist **{name}** byl vytvořen.",
+            "name_empty": "Musíte uvést název playlistu."
+        }
+    },
+    "delete": {
+        "description": "Smaže playlist",
+        "options": {
+            "playlist": "Playlist, který chcete smazat"
+        },
+        "messages": {
+            "playlist_not_found": "Tento playlist neexistuje.",
+            "playlist_deleted": "Playlist **{playlistName}** byl smazán."
+        }
+    },
+    "list": {
+        "description": "Vypíše všechny playlisty uživatele",
+        "options": {
+            "user": "Uživatel, jehož playlisty chcete získat"
+        },
+        "messages": {
+            "no_playlists": "Tento uživatel nemá žádné playlisty.",
+            "your": "Vaše",
+            "playlists_title": "Playlisty uživatele {username}",
+            "error": "Při získávání playlistů došlo k chybě.",
+            "invalid_username": "Neplatné uživatelské jméno nebo uživatel nebyl nalezen.",
+            "invalid_userid": "Neplatné ID uživatele."
+        }
+    },
+    "load": {
+        "description": "Načte uložený playlist do fronty.",
+        "options": {
+            "playlist": "Playlist, který chcete načíst"
+        },
+        "messages": {
+            "playlist_not_exist": "Tento playlist neexistuje.",
+            "playlist_empty": "Tento playlist je prázdný.",
+            "playlist_loaded": "Načteno `{name}` s `{count}` skladbami.",
+            "no_lavalink_nodes": "Nejsou k dispozici žádné uzly Lavalink pro načtení playlistu."
+        }
+    },
+    "removesong": {
+        "description": "Odstraní skladbu z playlistu",
+        "options": {
+            "playlist": "Playlist, ze kterého chcete skladbu odstranit",
+            "song": "Skladba, kterou chcete odstranit"
+        },
+        "messages": {
+            "provide_playlist": "Uveďte prosím playlist.",
+            "provide_song": "Uveďte prosím skladbu.",
+            "playlist_not_exist": "Tento playlist neexistuje.",
+            "song_not_found": "Nebyla nalezena žádná odpovídající skladba.",
+            "song_removed": "Skladba {song} byla odstraněna z {playlist}.",
+            "error_occurred": "Při odstraňování skladby došlo k chybě."
+        }
+    },
+    "steal": {
+        "description": "Ukradne playlist od jiného uživatele a přidá jej do vašich playlistů",
+        "options": {
+            "playlist": "Playlist, který chcete ukrást",
+            "user": "Uživatel, kterému chcete playlist ukrást"
+        },
+        "messages": {
+            "provide_playlist": "Uveďte prosím název playlistu.",
+            "provide_user": "Označte prosím uživatele.",
+            "playlist_not_exist": "Tento playlist pro označeného uživatele neexistuje.",
+            "playlist_exists": "Již máte playlist s názvem `{playlist}`.",
+            "playlist_stolen": "Playlist `{playlist}` byl úspěšně ukraden uživateli {user}.",
+            "error_occurred": "Při krádeži playlistu došlo k chybě."
+        }
+    },
+    "movenode": {
+        "description": "Přesunout přehrávače na jiný uzel Lavalink",
+        "options": {
+            "node": "ID uzlu, na který se mají přehrávače přesunout"
+        },
+        "messages": {
+            "no_player": "Na tomto serveru není žádný aktivní hudební přehrávač.",
+            "no_available_nodes": "Nejsou k dispozici žádné uzly, na které by se dalo přesunout.",
+            "available_nodes_title": "Dostupné uzly",
+            "current_node": "Aktuální uzel",
+            "available_nodes": "Dostupné uzly",
+            "usage_hint": "Použití: movenode <nodeId>",
+            "node_not_found": "Uzel `{node}` nebyl nalezen.",
+            "node_not_connected": "Uzel `{node}` není připojen.",
+            "same_node": "Přehrávač již na uzlu `{node}` je.",
+            "moving": "Přesouvání přehrávače z `{from}` na `{to}`...",
+            "success_title": "Přehrávač byl úspěšně přesunut",
+            "success_description": "Přehrávač byl přesunut z `{from}` na `{to}`.",
+            "error": "Nepodařilo se přesunout přehrávač: {error}",
+            "moving_all_players": "Přesouvání všech přehrávačů na uzel `{node}`...",
+            "results_title": "Výsledky MoveNode",
+            "moved_players": "**Přesunutí přehrávači na serverech:**\n{list}",
+            "guild_move": "• `{guildId}` ({from} → {to})",
+            "failed_moves": "**Nepodařilo se přesunout přehrávače na serverech:**\n{list}",
+            "guild_move_failed": "• `{guildId}`: {error}",
+            "no_players_moved": "Nebylo potřeba přesouvat žádné přehrávače.",
+            "unknown_error": "Neznámá chyba",
+            "no_players": "Nejsou k dispozici žádní přehrávači k přesunu."
+        }
+    }
+}
