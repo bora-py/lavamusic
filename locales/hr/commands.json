@@ -1,0 +1,639 @@
+{
+    "247": {
+        "description": "Postavite bota да ostane u glasovnom kanalu",
+        "errors": {
+            "not_in_voice": "Morate biti u glasovnom kanalu da biste koristili ovu naredbu.",
+            "generic": "Došlo je do pogreške prilikom pokušaja izvršavanja ove naredbe."
+        },
+        "messages": {
+            "disabled": "`✅` | 24/7 način rada je `ONEMOGUĆEN`.",
+            "enabled": "`✅` | 24/7 način rada je `OMOGUĆEN`."
+        }
+    },
+    "fairplay": {
+        "description": "Postavite bota да pušta glazbu pošteno među korisnicima.",
+        "errors": {
+            "not_in_voice": "Morate biti u glasovnom kanalu da biste koristili ovu naredbu.",
+            "generic": "Došlo je do pogreške prilikom pokušaja izvršavanja ove naredbe."
+        },
+        "messages": {
+            "disabled": "`✅` | Fairplay način rada je `ONEMOGUĆEN`.",
+            "enabled": "`✅` | Fairplay način rada je `OMOGUĆEN`."
+        }
+    },
+    "ping": {
+        "description": "Pokazuje latenciju bota.",
+        "content": "Pinganje...",
+        "bot_latency": "Latencija bota",
+        "api_latency": "Latencija API-ja",
+        "requested_by": "Zatražio {author}"
+    },
+    "lavalink": {
+        "description": "Pokazuje trenutnu statistiku Lavalink čvora.",
+        "title": "Lavalink statistika",
+        "content": "Svirač: {players}\nSvirača koji puštaju: {playingPlayers}\nVrijeme rada: {uptime}\nJezgre: {cores} jezgra/e\nUpotreba memorije: {used} / {reservable}\nOpterećenje sustava: {systemLoad}%\nOpterećenje Lavalinka: {lavalinkLoad}%",
+        "page_info": "Stranica {index} od {total}"
+    },
+    "invite": {
+        "description": "Dobijte poveznicu za poziv bota.",
+        "content": "Možete me pozvati klikom na gumb ispod. Ima li bugova ili prekida? Pridružite se poslužitelju za podršku!"
+    },
+    "help": {
+        "description": "Pokazuje izbornik za pomoć.",
+        "options": {
+            "command": "Naredba o kojoj želite dobiti informacije"
+        },
+        "content": "Hej! Ja sam `{bot}`, glazbeni bot napravljen pomoću [`Lavamusic`](https://github.com/appujet/lavamusic) i `Discord.js`.\nMožete koristiti `{prefix}help <naredba>` da biste dobili više informacija o naredbi.",
+        "title": "Izbornik za pomoć",
+        "not_found": "Ova naredba `{cmdName}` ne postoji.",
+        "help_cmd": "**Opis:** {description}\n**Upotreba:** {usage}\n**Primjeri:** {examples}\n**Aliasi:** {aliases}\n**Kategorija:** {category}\n**Vrijeme hlađenja:** {cooldown} sekundi\n**Dozvole:** {premUser}\n**Dozvole bota:** {premBot}\n**Samo za programere:** {dev}\n**Slash naredba:** {slash}\n**Argumenti:** {args}\n**Svirač:** {player}\n**DJ:** {dj}\n**DJ dozvole:** {djPerm}\n**Glas:** {voice}",
+        "footer": "Koristite {prefix}help <naredba> za više informacija o naredbi"
+    },
+    "botinfo": {
+        "description": "Informacije o botu",
+        "content": "Informacije o botu:\n- **Operativni sustav**: {osInfo}\n- **Vrijeme rada**: {osUptime}\n- **Ime računala**: {osHostname}\n- **Arhitektura procesora**: {cpuInfo}\n- **Upotreba procesora**: {cpuUsed}%\n- **Upotreba memorije**: {memUsed}MB / {memTotal}GB\n- **Verzija Nodea**: {nodeVersion}\n- **Verzija Discord.js-a**: {discordJsVersion}\n- **Povezan sa** {guilds} cehova, {channels} kanala i {users} korisnika\n- **Ukupno naredbi**: {commands}"
+    },
+    "about": {
+        "description": "Pokazuje informacije o botu",
+        "fields": {
+            "creator": "Kreator",
+            "repository": "Repozitorij",
+            "support": "Podrška",
+            "description": "Stvarno je želio napraviti svoj prvi projekt otvorenog koda za više programerskog iskustva. U ovom projektu bio je izazvan da napravi projekt s manje bugova. Nadamo se да uživate u korištenju LavaMusica!"
+        }
+    },
+    "dj": {
+        "description": "Upravljaj DJ načinom rada i povezanim ulogama",
+        "errors": {
+            "provide_role": "Molimo navedite ulogu.",
+            "no_roles": "Uloga DJ je prazna.",
+            "invalid_subcommand": "Molimo navedite važeću podnaredbu."
+        },
+        "messages": {
+            "role_exists": "DJ uloga <@&{roleId}> je već dodana.",
+            "role_added": "DJ uloga <@&{roleId}> je dodana.",
+            "role_not_found": "DJ uloga <@&{roleId}> nije dodana.",
+            "role_removed": "DJ uloga <@&{roleId}> je uklonjena.",
+            "all_roles_cleared": "Sve DJ uloge su uklonjene.",
+            "toggle": "DJ način rada je prebačen na {status}."
+        },
+        "options": {
+            "add": "Uloga DJ-a koju želite dodati",
+            "remove": "Uloga DJ-a koju želite ukloniti",
+            "clear": "Čisti sve DJ uloge",
+            "toggle": "Prebacuje DJ ulogu",
+            "role": "Uloga DJ-a"
+        },
+        "subcommands": "Podnaredbe"
+    },
+    "language": {
+        "description": "Konfigurirajte jezik bota.",
+        "invalid_language": "Molimo navedite važeći jezik. Primjer: `en-US` za engleski (Sjedinjene Američke Države)\n\nPopis podržanih jezika možete pronaći [ovdje](https://discord.com/developers/docs/reference#locales)\n\n**Dostupni jezici:**\n{languages}",
+        "already_set": "Jezik je već postavljen na `{language}`",
+        "not_set": "Jezik nije postavljen.",
+        "set": "Jezik je postavljen na `{language}`",
+        "reset": "Jezik je vraćen na zadani jezik.",
+        "options": {
+            "set": "Postavite jezik za bota",
+            "language": "Jezik koji želite postaviti",
+            "reset": "Vratite jezik na zadani jezik"
+        }
+    },
+    "prefix": {
+        "description": "Pokazuje ili postavlja prefiks bota",
+        "errors": {
+            "prefix_too_long": "Prefiks ne može biti duži od 3 znaka."
+        },
+        "messages": {
+            "current_prefix": "Prefiks za ovaj poslužitelj je `{prefix}`",
+            "prefix_set": "Prefiks za ovaj poslužitelj sada je `{prefix}`",
+            "prefix_reset": "Prefiks za ovaj poslužitelj sada je `{prefix}`"
+        },
+        "options": {
+            "set": "Postavlja prefiks",
+            "prefix": "Prefiks koji želite postaviti",
+            "reset": "Vraća prefiks na zadani"
+        }
+    },
+    "setup": {
+        "description": "Postavlja bota",
+        "errors": {
+            "channel_exists": "Kanal za traženje pjesama već postoji.",
+            "channel_not_exists": "Kanal za traženje pjesama ne postoji.",
+            "channel_delete_fail": "Kanal za postavljanje je izbrisan iz baze podataka. Ručno izbrišite tekstualni kanal."
+        },
+        "messages": {
+            "channel_created": "Kanal za traženje pjesama je stvoren u <#{channelId}>.",
+            "channel_deleted": "Kanal za traženje pjesama je izbrisan.",
+            "channel_info": "Kanal za traženje pjesama je <#{channelId}>."
+        },
+        "options": {
+            "create": "Stvara kanal za traženje pjesama",
+            "delete": "Briše kanal za traženje pjesama",
+            "info": "Pokazuje kanal za traženje pjesama"
+        }
+    },
+    "defaultvolume": {
+        "description": "Postavlja zadanu glasnoću za bota na ovom poslužitelju",
+        "options": {
+            "volume": "Zadana glasnoća koju želite postaviti (0-200)"
+        },
+        "messages": {
+            "current": "Trenutna zadana glasnoća za ovaj poslužitelj je **{volume}**.",
+            "set": "`✅` | Zadana glasnoća je postavljena na **{volume}**.",
+            "invalid_number": "Molimo navedite važeći broj.",
+            "too_low": "Glasnoća ne može biti manja od 0.",
+            "too_high": "Glasnoća ne može biti veća od 200."
+        }
+    },
+    "8d": {
+        "description": "Prebaci 8D filtar",
+        "messages": {
+            "filter_enabled": "`✅` | 8D filtar je `OMOGUĆEN`.",
+            "filter_disabled": "`✅` | 8D filtar je `ONEMOGUĆEN`."
+        }
+    },
+    "bassboost": {
+        "description": "Prebaci bassboost filtar",
+        "options": {
+            "level": "Razina bassboosta koju želite postaviti"
+        },
+        "messages": {
+            "high": "`✅` | Visoki bassboost filtar je `OMOGUĆEN`.",
+            "low": "`✅` | Niski bassboost filtar je `OMOGUĆEN`.",
+            "medium": "`✅` | Srednji bassboost filtar je `OMOGUĆEN`.",
+            "off": "`✅` | Bassboost filtar je `ONEMOGUĆEN`.",
+            "invalid_level": "Molimo navedite važeću razinu bassboosta. Dostupne razine: `high`, `medium`, `low`, `off`."
+        }
+    },
+    "distortion": {
+        "description": "Prebaci filtar distorzije",
+        "messages": {
+            "filter_enabled": "`✅` | Filtar distorzije je `OMOGUĆEN`.",
+            "filter_disabled": "`✅` | Filtar distorzije je `ONEMOGUĆEN`."
+        }
+    },
+    "karaoke": {
+        "description": "Prebaci karaoke filtar",
+        "messages": {
+            "filter_enabled": "`✅` | Karaoke filtar je `OMOGUĆEN`.",
+            "filter_disabled": "`✅` | Karaoke filtar je `ONEMOGUĆEN`."
+        }
+    },
+    "lowpass": {
+        "description": "Prebaci lowpass filtar",
+        "messages": {
+            "filter_enabled": "`✅` | Lowpass filtar je `OMOGUĆEN`.",
+            "filter_disabled": "`✅` | Lowpass filtar je `ONEMOGUĆEN`."
+        }
+    },
+    "nightcore": {
+        "description": "Prebaci nightcore filtar",
+        "messages": {
+            "filter_enabled": "`✅` | Nightcore filtar je `OMOGUĆEN`.",
+            "filter_disabled": "`✅` | Nightcore filtar je `ONEMOGUĆEN`."
+        }
+    },
+    "pitch": {
+        "description": "Prebaci filtar visine tona",
+        "options": {
+            "pitch": "Vrijednost za postavljanje visine tona (0.5 - 5)"
+        },
+        "errors": {
+            "invalid_number": "Molimo navedite važeći broj između 0.5 i 5."
+        },
+        "messages": {
+            "pitch_set": "`✅` | Visina tona je postavljena na **{pitch}**."
+        }
+    },
+    "rate": {
+        "description": "Promijeni brzinu pjesme",
+        "options": {
+            "rate": "Vrijednost za postavljanje brzine (0.5 - 5)"
+        },
+        "errors": {
+            "invalid_number": "Molimo navedite važeći broj između 0.5 i 5."
+        },
+        "messages": {
+            "rate_set": "`✅` | Brzina je postavljena na **{rate}**."
+        }
+    },
+    "reset": {
+        "description": "Resetira sve aktivne filtre",
+        "messages": {
+            "filters_reset": "`✅` | Filtri su resetirani."
+        }
+    },
+    "rotation": {
+        "description": "Prebaci filtаr rotacije",
+        "messages": {
+            "enabled": "`✅` | Filtаr rotacije je `OMOGUĆEN`.",
+            "disabled": "`✅` | Filtаr rotacije je `ONEMOGUĆEN`."
+        }
+    },
+    "speed": {
+        "description": "Promijeni brzinu pjesme",
+        "options": {
+            "speed": "Brzina koju želite postaviti (0.5 - 5)"
+        },
+        "messages": {
+            "invalid_number": "Molimo navedite važeći broj između 0.5 i 5.",
+            "set_speed": "`✅` | Brzina je postavljena na **{speed}**."
+        }
+    },
+    "tremolo": {
+        "description": "Prebaci tremolo filtar",
+        "messages": {
+            "enabled": "`✅` | Tremolo filtar je `OMOGUĆEN`.",
+            "disabled": "`✅` | Tremolo filtar je `ONEMOGUĆEN`."
+        }
+    },
+    "vibrato": {
+        "description": "Prebaci vibrato filtar",
+        "messages": {
+            "enabled": "`✅` | Vibrato filtar je `OMOGUĆEN`.",
+            "disabled": "`✅` | Vibrato filtar je `ONEMOGUĆEN`."
+        }
+    },
+    "autoplay": {
+        "description": "Prebacuje način automatskog puštanja.",
+        "messages": {
+            "enabled": "`✅` | Automatsko puštanje je `OMOGUĆENO`.",
+            "disabled": "`✅` | Automatsko puštanje je `ONEMOGUĆENO`."
+        }
+    },
+    "clearqueue": {
+        "description": "Očisti trenutni red čekanja.",
+        "messages": {
+            "cleared": "Red čekanja je očišćen."
+        }
+    },
+    "grab": {
+        "description": "Spremi trenutnu pjesmu u svoj DM.",
+        "loading": "Učitavanje...",
+        "content": "**Trajanje:** {length}\n**Zatražio:** <@{requester}>\n**Poveznica:** [Klikni ovdje]({uri})",
+        "check_dm": "Molimo provjerite svoj DM.",
+        "dm_failed": "Nisam vam mogao poslati DM. Provjerite jesu li vam DM-ovi otvoreni."
+    },
+    "join": {
+        "description": "Pridružuje bota vašem glasovnom kanalu",
+        "already_connected": "Već sam povezan s <#{channelId}>.",
+        "no_voice_channel": "Morate biti u glasovnom kanalu da biste koristili ovu naredbu.",
+        "joined": "Uspješno se pridružio <#{channelId}>."
+    },
+    "leave": {
+        "description": "Odspoji bota s glasovnog kanala",
+        "left": "Uspješno napustio <#{channelId}>.",
+        "not_in_channel": "Nisam u glasovnom kanalu."
+    },
+    "loop": {
+        "description": "Ponavljaj trenutnu pjesmu ili red čekanja",
+        "options": {
+            "mode": "Način ponavljanja koji želite postaviti"
+        },
+        "messages": {
+            "looping_song": "**Ponavljanje pjesme.**",
+            "looping_queue": "**Ponavljanje reda čekanja.**",
+            "looping_off": "**Ponavljanje je sada isključeno.**",
+            "invalid_mode": "Neispravan način ponavljanja"
+        }
+    },
+    "lyrics": {
+        "description": "Prikaži tekst pjesme za trenutni zapis",
+        "lyrics_for_track": "### Tekst pjesme za: [{trackTitle}]({trackUrl})",
+        "no_lyrics_on_page": "Na ovoj stranici nije pronađen tekst pjesme.",
+        "searching": "🔍 Traženje teksta pjesme za **{trackTitle}**...",
+        "session_expired": "Sesija je istekla. Ponovno upotrijebite naredbu za osvježavanje.",
+        "page_indicator": "Stranica {current}/{total}",
+        "artwork_description": "Ilustracija za {trackTitle}",
+        "no_lyrics_available": "Tekst pjesme nije dostupan",
+        "button_subscribe": "📌 Pretplatite se na Live Lyrics",
+        "button_unsubscribe": "📌 Otkažite pretplatu na Live Lyrics",
+        "subscribed": "Pretplatili ste se na ažuriranja teksta pjesama uživo!",
+        "unsubscribed": "Otkazali ste pretplatu na ažuriranja teksta pjesama uživo.",
+        "errors": {
+            "no_results": "Nije pronađen tekst pjesme za trenutni zapis.",
+            "lyrics_error": "Došlo je do pogreške prilikom dohvaćanja teksta pjesme.",
+            "no_player_for_lyrics": "Ne mogu dohvatiti tekst za ovu pjesmu bez aktivnog svirača."
+        },
+        "options": {
+            "song": "Pjesma za koju želite dobiti tekst"
+        }
+    },
+    "nowplaying": {
+        "description": "Pokazuje pjesmu koja se trenutno pušta",
+        "now_playing": "Sada se pušta",
+        "track_info": "[{title}]({uri}) - Zatražio: <@{requester}>\n\n`{bar}`"
+    },
+    "pause": {
+        "description": "Pauzira trenutnu pjesmu",
+        "successfully_paused": "Uspješno pauzirana pjesma."
+    },
+    "play": {
+        "description": "Pušta pjesmu s YouTubea, Spotifyja, URL-a itd.",
+        "options": {
+            "song": "Pjesma ili URL koji želite pustiti"
+        },
+        "loading": "Učitavanje...",
+        "errors": {
+            "search_error": "Došlo je do pogreške prilikom pretraživanja.",
+            "no_results": "Nisu pronađeni rezultati.",
+            "queue_too_long": "Red čekanja je predug. Maksimalna duljina je {maxQueueSize} pjesama.",
+            "playlist_too_long": "Popis pjesama je predug. Maksimalna duljina je {maxPlaylistSize} pjesama."
+        },
+        "added_to_queue": "Dodano [{title}]({uri}) u red čekanja.",
+        "added_playlist_to_queue": "Dodano {length} pjesama u red čekanja."
+    },
+    "playlocal": {
+        "description": "Pušta lokalnu audio datoteku",
+        "options": {
+            "file": "Audio datoteka koju želite pustiti"
+        },
+        "loading": "Učitavanje...",
+        "errors": {
+            "empty_query": "Molimo priložite audio datoteku za puštanje.",
+            "invalid_format": "Možete puštati samo MP3, WAV, OGG, FLAC, AAC ili M4A datoteke.",
+            "no_results": "Neuspješno puštanje audio datoteke. Možda je oštećena."
+        },
+        "added_to_queue": "Dodano [{title}]({url}) u red čekanja"
+    },
+    "playnext": {
+        "description": "Dodaje pjesmu na vrh reda čekanja",
+        "options": {
+            "song": "Pjesma koju želite pustiti"
+        },
+        "loading": "Učitavanje...",
+        "errors": {
+            "search_error": "Došlo je do pogreške prilikom pretraživanja.",
+            "no_results": "Nisu pronađeni rezultati.",
+            "queue_too_long": "Red čekanja je predug. Maksimalna duljina je {maxQueueSize} pjesama.",
+            "playlist_too_long": "Popis pjesama je predug. Maksimalna duljina je {maxPlaylistSize} pjesama."
+        },
+        "added_to_play_next": "Dodano [{title}]({uri}) za sljedeće puštanje u redu čekanja.",
+        "added_playlist_to_play_next": "Dodano {length} pjesama za sljedeće puštanje u redu čekanja."
+    },
+    "queue": {
+        "description": "Prikazuje trenutni red čekanja pjesama.",
+        "now_playing": "Sada se pušta: [{title}]({uri}) - Zatražio: <@{requester}> - Trajanje: `{duration}`",
+        "live": "UŽIVO",
+        "track_info": "{index}. [{title}]({uri}) - Zatražio: <@{requester}> - Trajanje: `{duration}`",
+        "title": "Red čekanja",
+        "page_info": "Stranica {index} od {total}",
+        "duration": "Trajanje reda čekanja: `{totalDuration}`"
+    },
+    "remove": {
+        "description": "Uklanja određenu pjesmu iz reda čekanja",
+        "options": {
+            "song": "Broj pjesme koju želite ukloniti"
+        },
+        "errors": {
+            "no_songs": "Nema pjesama u redu čekanja.",
+            "invalid_number": "Molimo navedite važeći broj pjesme."
+        },
+        "messages": {
+            "removed": "Uklonjena pjesma broj {songNumber} iz reda čekanja."
+        }
+    },
+    "replay": {
+        "description": "Ponovno pušta trenutni zapis",
+        "errors": {
+            "not_seekable": "Ne mogu ponovno pustiti ovaj zapis jer se ne može premotavati."
+        },
+        "messages": {
+            "replaying": "Ponovno puštanje trenutnog zapisa."
+        }
+    },
+    "resume": {
+        "description": "Nastavlja pauziranu pjesmu",
+        "errors": {
+            "not_paused": "Svirač nije pauziran."
+        },
+        "messages": {
+            "resumed": "Nastavio svirač."
+        }
+    },
+    "search": {
+        "description": "Traži pjesmu",
+        "options": {
+            "song": "Pjesma koju tražite"
+        },
+        "select": "Odaberite pjesmu s popisa...",
+        "errors": {
+            "no_results": "Nema pronađenih rezultata.",
+            "no_results_title": "Nisu pronađeni rezultati pretraživanja!",
+            "no_results_description": "Nisam mogao pronaći nijednu pjesmu koja odgovara vašem upitu. Pokušajte promijeniti ključne riječi ili navesti poveznicu.",
+            "invalid_selection_title": "Nevaljan odabir!",
+            "invalid_selection_description": "Odabrana opcija je nevaljana. Molimo odaberite broj pjesme s popisa.",
+            "search_error": "Došlo je do pogreške prilikom pretraživanja pjesme.",
+            "vc_connect_fail_title": "Pogreška pri povezivanju s glasovnim kanalom",
+            "vc_connect_fail_description": "Nisam se mogao povezati s vašim glasovnim kanalom. Provjerite imam li odgovarajuće dozvole."
+        },
+        "messages": {
+            "results_found": "Pronađeno **{count}** pjesama.",
+            "select_prompt": "Odaberite broj za dodavanje pjesme u red čekanja.",
+            "page_info": "Stranica {currentPage}/{maxPages}",
+            "added_to_queue": "Dodano **[{title}]({uri})** u red čekanja!",
+            "selection_timed_out_title": "Vrijeme je isteklo!",
+            "selection_timed_out_description": "Nijedna pjesma nije odabrana u zadanom vremenu. Pretraživanje je otkazano. Molimo pokušajte ponovno.",
+            "selection_timed_out_short": "Vrijeme odabira je isteklo."
+        }
+    },
+    "seek": {
+        "description": "Premotava na određeno vrijeme u pjesmi",
+        "options": {
+            "duration": "Trajanje na koje želite premotati (npr. 1m 30s)"
+        },
+        "errors": {
+            "invalid_format": "Neispravan format vremena. Primjeri: seek 1m, seek 1h 30m",
+            "not_seekable": "Ovaj zapis se ne može premotavati.",
+            "beyond_duration": "Ne mogu premotati izvan trajanja pjesme od {length}."
+        },
+        "messages": {
+            "seeked_to": "Premotano na {duration}"
+        }
+    },
+    "shuffle": {
+        "description": "Miješa red čekanja",
+        "messages": {
+            "shuffled": "Red čekanja je promiješan."
+        },
+        "errors": {
+            "fairplay": "Fairplay način rada je omogućen. Ne možete miješati red čekanja."
+        }
+    },
+    "skip": {
+        "description": "Preskače trenutnu pjesmu",
+        "messages": {
+            "skipped": "Preskočeno [{title}]({uri})."
+        }
+    },
+    "skipto": {
+        "description": "Preskače na određenu pjesmu u redu čekanja",
+        "options": {
+            "number": "Broj pjesme na koju želite preskočiti"
+        },
+        "errors": {
+            "invalid_number": "Molimo navedite važeći broj."
+        },
+        "messages": {
+            "skipped_to": "Preskočeno na pjesmu broj {number}."
+        }
+    },
+    "move": {
+        "description": "Premjesti poziciju zapisa u redu čekanja",
+        "options": {
+            "from": "Pozicija zapisa koji se premješta",
+            "to": "Pozicija na koju se zapis premješta"
+        },
+        "errors": {
+            "no_tracks": "Nema zapisa u redu čekanja.",
+            "invalid_usage": "Neispravna upotreba. Molimo navedite početnu i krajnju poziciju.",
+            "invalid_numbers": "Molimo navedite važeće pozicije zapisa.",
+            "invalid_positions": "Molimo navedite važeće pozicije zapisa unutar reda čekanja.",
+            "same_position": "Početna i krajnja pozicija su iste."
+        },
+        "messages": {
+            "moved": "Premješten **{title}** s pozicije {from} na {to}."
+        }
+    },
+    "stop": {
+        "description": "Zaustavlja glazbu i čisti red čekanja",
+        "messages": {
+            "stopped": "Zaustavljena glazba i očišćen red čekanja."
+        }
+    },
+    "volume": {
+        "description": "Postavlja glasnoću svirača",
+        "options": {
+            "number": "Glasnoća koju želite postaviti (0-200)"
+        },
+        "messages": {
+            "invalid_number": "Molimo navedite važeći broj.",
+            "too_low": "Glasnoća ne može biti manja od 0.",
+            "too_high": "Glasnoća ne može biti veća od 200. Želite li oštetiti sluh ili zvučnike? Hmmm, mislim да to nije tako dobra ideja.",
+            "set": "Glasnoća postavljena na {volume}"
+        }
+    },
+    "addsong": {
+        "description": "Dodaje pjesmu u spremljeni popis pjesama",
+        "options": {
+            "playlist": "Popis pjesama u koji želite dodati",
+            "song": "Pjesma koju želite dodati"
+        },
+        "messages": {
+            "no_playlist": "Molimo navedite popis pjesama",
+            "no_song": "Molimo navedite pjesmu",
+            "playlist_not_found": "Taj popis pjesama ne postoji",
+            "no_songs_found": "Nisu pronađene pjesme",
+            "added": "Dodano {count} pjesama u {playlist}"
+        }
+    },
+    "create": {
+        "description": "Stvara novi popis pjesama.",
+        "options": {
+            "name": "Ime popisa pjesama"
+        },
+        "messages": {
+            "name_too_long": "Imena popisa pjesama mogu imati samo 50 znakova.",
+            "playlist_exists": "Popis pjesama s tim imenom već postoji. Molimo koristite drugo ime.",
+            "playlist_created": "Popis pjesama **{name}** je stvoren.",
+            "name_empty": "Morate navesti ime popisa pjesama."
+        }
+    },
+    "delete": {
+        "description": "Briše popis pjesama",
+        "options": {
+            "playlist": "Popis pjesama koji želite izbrisati"
+        },
+        "messages": {
+            "playlist_not_found": "Taj popis pjesama ne postoji.",
+            "playlist_deleted": "Izbrisan popis pjesama **{playlistName}**."
+        }
+    },
+    "list": {
+        "description": "Izlistava sve popise pjesama za korisnika",
+        "options": {
+            "user": "Korisnik čije popise pjesama želite dohvatiti"
+        },
+        "messages": {
+            "no_playlists": "Ovaj korisnik nema popisa pjesama.",
+            "your": "Vaši",
+            "playlists_title": "Popisi pjesama korisnika {username}",
+            "error": "Došlo je do pogreške prilikom dohvaćanja popisa pjesama.",
+            "invalid_username": "Nevaljano korisničko ime ili korisnik nije pronađen.",
+            "invalid_userid": "Nevaljan korisnički ID."
+        }
+    },
+    "load": {
+        "description": "Učitava spremljeni popis pjesama u red čekanja.",
+        "options": {
+            "playlist": "Popis pjesama koji želite učitati"
+        },
+        "messages": {
+            "playlist_not_exist": "Taj popis pjesama ne postoji.",
+            "playlist_empty": "Taj popis pjesama je prazan.",
+            "playlist_loaded": "Učitan `{name}` s `{count}` pjesama.",
+            "no_lavalink_nodes": "Nema dostupnih Lavalink čvorova za učitavanje popisa pjesama."
+        }
+    },
+    "removesong": {
+        "description": "Uklanja pjesmu s popisa pjesama",
+        "options": {
+            "playlist": "Popis pjesama s kojeg želite ukloniti",
+            "song": "Pjesma koju želite ukloniti"
+        },
+        "messages": {
+            "provide_playlist": "Molimo navedite popis pjesama.",
+            "provide_song": "Molimo navedite pjesmu.",
+            "playlist_not_exist": "Taj popis pjesama ne postoji.",
+            "song_not_found": "Nije pronađena odgovarajuća pjesma.",
+            "song_removed": "Uklonjen {song} s {playlist}.",
+            "error_occurred": "Došlo je do pogreške prilikom uklanjanja pjesme."
+        }
+    },
+    "steal": {
+        "description": "Krade popis pjesama od drugog korisnika i dodaje ga u vaše popise pjesama",
+        "options": {
+            "playlist": "Popis pjesama koji želite ukrasti",
+            "user": "Korisnik od kojeg želite ukrasti popis pjesama"
+        },
+        "messages": {
+            "provide_playlist": "Molimo navedite ime popisa pjesama.",
+            "provide_user": "Molimo spomenite korisnika.",
+            "playlist_not_exist": "Taj popis pjesama ne postoji za spomenutog korisnika.",
+            "playlist_exists": "Već imate popis pjesama pod imenom `{playlist}`.",
+            "playlist_stolen": "Uspješno ukraden popis pjesama `{playlist}` od {user}.",
+            "error_occurred": "Došlo je do pogreške prilikom krađe popisa pjesama."
+        }
+    },
+    "movenode": {
+        "description": "Premjesti svirače na drugi Lavalink čvor",
+        "options": {
+            "node": "ID čvora na koji želite premjestiti svirače"
+        },
+        "messages": {
+            "no_player": "Na ovom poslužitelju nema aktivnog glazbenog svirača.",
+            "no_available_nodes": "Nema dostupnih čvorova na koje bi se moglo premjestiti.",
+            "available_nodes_title": "Dostupni čvorovi",
+            "current_node": "Trenutni čvor",
+            "available_nodes": "Dostupni čvorovi",
+            "usage_hint": "Upotreba: movenode <nodeId>",
+            "node_not_found": "Čvor `{node}` nije pronađen.",
+            "node_not_connected": "Čvor `{node}` nije povezan.",
+            "same_node": "Svirač je već na čvoru `{node}`.",
+            "moving": "Premještanje svirača s `{from}` na `{to}`...",
+            "success_title": "Svirač uspješno premješten",
+            "success_description": "Svirač je premješten s `{from}` na `{to}`.",
+            "error": "Neuspješno premještanje svirača: {error}",
+            "moving_all_players": "Premještanje svih svirača na čvor `{node}`...",
+            "results_title": "MoveNode rezultati",
+            "moved_players": "**Premješteni svirači u cehovima:**\n{list}",
+            "guild_move": "• `{guildId}` ({from} → {to})",
+            "failed_moves": "**Neuspješno premještanje svirača u cehovima:**\n{list}",
+            "guild_move_failed": "• `{guildId}`: {error}",
+            "no_players_moved": "Nije bilo potrebno premjestiti svirače.",
+            "unknown_error": "Nepoznata pogreška",
+            "no_players": "Nema svirača za premještanje."
+        }
+    }
+}
