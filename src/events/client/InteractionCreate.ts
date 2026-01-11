@@ -2,22 +2,26 @@
 import {
 	ActionRowBuilder,
 	ButtonBuilder,
+	type ButtonInteraction,
 	ButtonStyle,
 	type CacheType,
 	ChannelType,
 	Collection,
+	ContainerBuilder,
 	EmbedBuilder,
-	type GuildMember,
+	GuildMember,
 	type Interaction,
 	InteractionType,
 	MessageFlags,
 	PermissionFlagsBits,
+	SectionBuilder,
 	type TextChannel,
 } from "discord.js";
 import { I18N, t } from "../../structures/I18n";
 import { Context, Event, type Lavamusic } from "../../structures/index";
 import logger from "../../structures/Logger";
 import { LavamusicEventType } from "../../types/events";
+import { checkDj, createButtonRow } from "../player/TrackStart";
 
 export default class InteractionCreate extends Event {
 	constructor(client: Lavamusic, file: string) {
@@ -292,6 +296,124 @@ export default class InteractionCreate extends Event {
 				await interaction.reply({
 					content: t(I18N.events.interaction.error, { error }),
 				});
+			}
+		} else if (interaction.isButton()) {
+			const { customId } = interaction;
+			const nowPlayingIds = ["previous", "resume", "stop", "skip", "loop"];
+			if (nowPlayingIds.includes(customId)) {
+				const player = this.client.manager.getPlayer(interaction.guildId);
+				if (!player || !player.queue.current) return;
+
+				if (interaction.member instanceof GuildMember) {
+					const isSameVoiceChannel =
+						interaction.guild?.members.me?.voice.channelId === interaction.member.voice.channelId;
+					if (!isSameVoiceChannel) {
+						return await interaction.reply({
+							content: t(I18N.player.trackStart.not_connected_to_voice_channel, {
+								channel: interaction.guild?.members.me?.voice.channelId ?? "None",
+							}),
+							flags: MessageFlags.Ephemeral,
+						});
+					}
+				}
+
+				if (!(await checkDj(this.client, interaction as ButtonInteraction<"cached">))) {
+					return await interaction.reply({
+						content: t(I18N.player.trackStart.need_dj_role),
+						flags: MessageFlags.Ephemeral,
+					});
+				}
+
+				const track = player.queue.current;
+
+				const editMessage = async (text: string): Promise<void> => {
+					const mainSection = new SectionBuilder().addTextDisplayComponents((td) =>
+						td.setContent(
+							`**[${track.info.title}](${track.info.uri})**\n` +
+							`-# ${text}\n` +
+							`${t(I18N.player.trackStart.author)}: ${track.info.author}\n` +
+							`${t(I18N.player.trackStart.duration)}: ${track.info.isStream ? "LIVE" : this.client.utils.formatTime(track.info.duration)}`,
+						),
+					);
+
+					if (track.info.artworkUrl) {
+						mainSection.setThumbnailAccessory((th) =>
+							th.setURL(track.info.artworkUrl!).setDescription(`Artwork for ${track.info.title}`),
+						);
+					}
+
+					const updatedContainer = new ContainerBuilder()
+						.setAccentColor(this.client.color.main)
+						.addSectionComponents(mainSection);
+
+					await interaction.message.edit({
+						components: [updatedContainer, createButtonRow(player)],
+					});
+				};
+
+				switch (customId) {
+					case "previous":
+						if (player.queue.previous && player.queue.previous.length > 0) {
+							await interaction.deferUpdate();
+							const previousTrack = player.queue.previous[0];
+							player.play({ track: previousTrack });
+							await editMessage(t(I18N.player.trackStart.previous_by, { user: interaction.user.tag }));
+						} else {
+							await interaction.reply({
+								content: t(I18N.player.trackStart.no_previous_song),
+								flags: MessageFlags.Ephemeral,
+							});
+						}
+						break;
+					case "resume":
+						if (player.paused) {
+							player.resume();
+							await interaction.deferUpdate();
+							await editMessage(t(I18N.player.trackStart.resumed_by, { user: interaction.user.tag }));
+						} else {
+							player.pause();
+							await interaction.deferUpdate();
+							await editMessage(t(I18N.player.trackStart.paused_by, { user: interaction.user.tag }));
+						}
+						break;
+					case "stop":
+						player.stopPlaying(true, false);
+						await interaction.deferUpdate();
+						break;
+					case "skip":
+						if (player.queue.tracks.length > 0) {
+							await interaction.deferUpdate();
+							player.skip();
+							await editMessage(t(I18N.player.trackStart.skipped_by, { user: interaction.user.tag }));
+						} else {
+							await interaction.reply({
+								content: t(I18N.player.trackStart.no_more_songs_in_queue),
+								flags: MessageFlags.Ephemeral,
+							});
+						}
+						break;
+					case "loop":
+						await interaction.deferUpdate();
+						switch (player.repeatMode) {
+							case "off":
+								player.setRepeatMode("track");
+								await editMessage(t(I18N.player.trackStart.looping_by, { user: interaction.user.tag }));
+								break;
+							case "track":
+								player.setRepeatMode("queue");
+								await editMessage(
+									t(I18N.player.trackStart.looping_queue_by, { user: interaction.user.tag }),
+								);
+								break;
+							case "queue":
+								player.setRepeatMode("off");
+								await editMessage(
+									t(I18N.player.trackStart.looping_off_by, { user: interaction.user.tag }),
+								);
+								break;
+						}
+						break;
+				}
 			}
 		} else if (interaction.type === InteractionType.ApplicationCommandAutocomplete) {
 			const command = this.client.commands.get(interaction.commandName);

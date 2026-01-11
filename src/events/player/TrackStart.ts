@@ -4,12 +4,13 @@ import {
 	type ButtonInteraction,
 	ButtonStyle,
 	type ChannelSelectMenuInteraction,
-	GuildMember,
+	ContainerBuilder,
 	type MentionableSelectMenuInteraction,
 	MessageFlags,
 	PermissionFlagsBits,
 	type RoleSelectMenuInteraction,
 	type StringSelectMenuInteraction,
+	SectionBuilder,
 	type TextChannel,
 	type UserSelectMenuInteraction,
 } from "discord.js";
@@ -36,49 +37,35 @@ export default class TrackStart extends Event {
 		const channel = guild.channels.cache.get(player.textChannelId) as TextChannel;
 		if (!channel) return;
 
-		this.client.utils.updateStatus(this.client, guild.id);
-
 		const locale = await this.client.db.getLanguage(guild.id);
 
 		if (player.voiceChannelId) {
 			await this.client.utils.setVoiceStatus(
 				this.client,
 				player.voiceChannelId,
-				`🎵 ${track.info.title}`,
+				`♫ • ${track.info.title}`,
 			);
 		}
 
-		const embed = this.client
-			.embed()
-			.setAuthor({
-				name: t(I18N.player.trackStart.now_playing),
-				iconURL:
-					this.client.config.icons[track.info.sourceName] ??
-					this.client.user?.displayAvatarURL({ extension: "png" }),
-			})
-			.setColor(this.client.color.main)
-			.setDescription(`**[${track.info.title}](${track.info.uri})**`)
-			.setFooter({
-				text: t(I18N.player.trackStart.requested_by, {
-					user: (track.requester as Requester).username,
-				}),
-				iconURL: (track.requester as Requester).avatarURL,
-			})
-			.setThumbnail(track.info.artworkUrl)
-			.addFields(
-				{
-					name: t(I18N.player.trackStart.duration),
-					value: track.info.isStream ? "LIVE" : this.client.utils.formatTime(track.info.duration),
-					inline: true,
-				},
-				{
-					name: t(I18N.player.trackStart.author),
-					value: track.info.author,
-					inline: true,
-				},
-			)
-			.setTimestamp();
+		const trackInfo = `**[${track.info.title}](${track.info.uri})**\n` +
+			`-# ${t(I18N.player.trackStart.author)}: ${track.info.author}\n` +
+			`-# ${t(I18N.player.trackStart.duration)}: ${track.info.isStream ? "LIVE" : this.client.utils.formatTime(track.info.duration)}\n` +
+			`-# ${t(I18N.player.trackStart.requested_by, { user: (track.requester as Requester).username })}`;
 
+		const mainSection = new SectionBuilder().addTextDisplayComponents((td) =>
+			td.setContent(trackInfo),
+		);
+
+		if (track.info.artworkUrl) {
+			mainSection.setThumbnailAccessory((th) =>
+				th.setURL(track.info.artworkUrl!).setDescription(`Artwork for ${track.info.title}`),
+			);
+		}
+
+		const container = new ContainerBuilder()
+			.setAccentColor(this.client.color.main)
+			.addSectionComponents(mainSection)
+			.addActionRowComponents(createButtonRow(player));
 		const setup = await this.client.db.getSetup(guild.id);
 
 		if (setup?.textId) {
@@ -88,42 +75,42 @@ export default class TrackStart extends Event {
 			}
 		} else {
 			const message = await channel.send({
-				embeds: [embed],
-				components: [createButtonRow(player, this.client)],
+				components: [container],
+				flags: MessageFlags.IsComponentsV2,
 			});
 
 			player.set("messageId", message.id);
-			createCollector(message, player, track, embed, this.client);
 		}
 	}
 }
 
-function createButtonRow(player: Player, client: Lavamusic): ActionRowBuilder<ButtonBuilder> {
+export function createButtonRow(
+	player: Player
+): ActionRowBuilder<ButtonBuilder> {
 	const previousButton = new ButtonBuilder()
-
 		.setCustomId("previous")
-		.setEmoji(client.emoji.previous)
+		.setLabel(t(I18N.buttons.previous))
 		.setStyle(ButtonStyle.Secondary)
-		.setDisabled(!player.queue.previous);
+		.setDisabled(!player.queue.previous || player.queue.previous.length === 0);
 
 	const resumeButton = new ButtonBuilder()
 		.setCustomId("resume")
-		.setEmoji(player.paused ? client.emoji.resume : client.emoji.pause)
+		.setLabel(player.paused ? t(I18N.buttons.resume) : t(I18N.buttons.pause))
 		.setStyle(player.paused ? ButtonStyle.Success : ButtonStyle.Secondary);
 
 	const stopButton = new ButtonBuilder()
 		.setCustomId("stop")
-		.setEmoji(client.emoji.stop)
+		.setLabel(t(I18N.buttons.stop))
 		.setStyle(ButtonStyle.Danger);
 
 	const skipButton = new ButtonBuilder()
 		.setCustomId("skip")
-		.setEmoji(client.emoji.skip)
+		.setLabel(t(I18N.buttons.skip))
 		.setStyle(ButtonStyle.Secondary);
 
 	const loopButton = new ButtonBuilder()
 		.setCustomId("loop")
-		.setEmoji(player.repeatMode === "track" ? client.emoji.loop.track : client.emoji.loop.none)
+		.setLabel(t(I18N.buttons.loop))
 		.setStyle(player.repeatMode !== "off" ? ButtonStyle.Success : ButtonStyle.Secondary);
 
 	return new ActionRowBuilder<ButtonBuilder>().addComponents(
@@ -135,124 +122,7 @@ function createButtonRow(player: Player, client: Lavamusic): ActionRowBuilder<Bu
 	);
 }
 
-function createCollector(
-	message: any,
-	player: Player,
-	_track: Track,
-	embed: any,
-	client: Lavamusic,
-): void {
-	const collector = message.createMessageComponentCollector({
-		filter: async (b: ButtonInteraction) => {
-			if (b.member instanceof GuildMember) {
-				const isSameVoiceChannel =
-					b.guild?.members.me?.voice.channelId === b.member.voice.channelId;
-				if (isSameVoiceChannel) return true;
-			}
-			await b.reply({
-				content: t(I18N.player.trackStart.not_connected_to_voice_channel, {
-					channel: b.guild?.members.me?.voice.channelId ?? "None",
-				}),
-				flags: MessageFlags.Ephemeral,
-			});
-			return false;
-		},
-	});
 
-	collector.on("collect", async (interaction: ButtonInteraction<"cached">) => {
-		if (!(await checkDj(client, interaction))) {
-			await interaction.reply({
-				content: t(I18N.player.trackStart.need_dj_role),
-				flags: MessageFlags.Ephemeral,
-			});
-			return;
-		}
-
-		const editMessage = async (text: string): Promise<void> => {
-			if (message) {
-				await message.edit({
-					embeds: [
-						embed.setFooter({
-							text,
-							iconURL: interaction.user.avatarURL({}),
-						}),
-					],
-					components: [createButtonRow(player, client)],
-				});
-			}
-		};
-		switch (interaction.customId) {
-			case "previous":
-				if (player.queue.previous) {
-					await interaction.deferUpdate();
-					const previousTrack = player.queue.previous[0];
-					player.play({
-						track: previousTrack,
-					});
-					await editMessage(t(I18N.player.trackStart.previous_by, { user: interaction.user.tag }));
-				} else {
-					await interaction.reply({
-						content: t(I18N.player.trackStart.no_previous_song),
-						flags: MessageFlags.Ephemeral,
-					});
-				}
-				break;
-			case "resume":
-				if (player.paused) {
-					player.resume();
-					await interaction.deferUpdate();
-					await editMessage(t(I18N.player.trackStart.resumed_by, { user: interaction.user.tag }));
-				} else {
-					player.pause();
-					await interaction.deferUpdate();
-					await editMessage(t(I18N.player.trackStart.paused_by, { user: interaction.user.tag }));
-				}
-				break;
-			case "stop": {
-				player.stopPlaying(true, false);
-				await interaction.deferUpdate();
-				break;
-			}
-			case "skip":
-				if (player.queue.tracks.length > 0) {
-					await interaction.deferUpdate();
-					player.skip();
-					await editMessage(t(I18N.player.trackStart.skipped_by, { user: interaction.user.tag }));
-				} else {
-					await interaction.reply({
-						content: t(I18N.player.trackStart.no_more_songs_in_queue),
-						flags: MessageFlags.Ephemeral,
-					});
-				}
-				break;
-			case "loop": {
-				await interaction.deferUpdate();
-				switch (player.repeatMode) {
-					case "off": {
-						player.setRepeatMode("track");
-						await editMessage(t(I18N.player.trackStart.looping_by, { user: interaction.user.tag }));
-						break;
-					}
-					case "track": {
-						player.setRepeatMode("queue");
-						await editMessage(
-							t(I18N.player.trackStart.looping_queue_by, { user: interaction.user.tag }),
-						);
-						break;
-					}
-					case "queue": {
-						player.setRepeatMode("off");
-						await editMessage(
-							t(I18N.player.trackStart.looping_off_by, { user: interaction.user.tag }),
-						);
-						break;
-					}
-				}
-				break;
-			}
-		}
-	});
-}
 
 export async function checkDj(
 	client: Lavamusic,

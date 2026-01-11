@@ -198,7 +198,7 @@ export default class SetupButtons extends Event {
 								iconURL: interaction.member.displayAvatarURL({}),
 							}),
 						],
-						components: getButtons(player, this.client),
+						components: getButtons(player),
 					});
 					break;
 				}
@@ -267,7 +267,7 @@ export default class SetupButtons extends Event {
 					if (message) {
 						await message.edit({
 							embeds: [newEmbed],
-							components: getButtons(player, this.client),
+							components: getButtons(player),
 						});
 					}
 					break;

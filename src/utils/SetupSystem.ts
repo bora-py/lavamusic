@@ -1,9 +1,13 @@
 import {
 	type ColorResolvable,
+	ContainerBuilder,
 	EmbedBuilder,
 	type Guild,
+	MediaGalleryBuilder,
+	MediaGalleryItemBuilder,
 	type Message,
 	MessageFlags,
+	SectionBuilder,
 	type TextChannel,
 } from "discord.js";
 import type { Player, Track } from "lavalink-client";
@@ -185,26 +189,37 @@ async function trackStart(
 		requester: (player.queue.current!.requester as Requester).id,
 	});
 
-	const embed = client
-		.embed()
-		.setAuthor({
-			name: t(I18N.player.setupStart.now_playing, { lng: locale }),
-			iconURL: iconUrl,
-		})
-		.setColor(client.color.main)
-		.setDescription(description)
-		.setImage(icon);
+	const mainSection = new SectionBuilder().addTextDisplayComponents((td) =>
+		td.setContent(description),
+	);
+
+	if (track.info.artworkUrl) {
+		mainSection.setThumbnailAccessory((th) =>
+			th.setURL(track.info.artworkUrl!).setDescription(`Artwork for ${track.info.title}`),
+		);
+	}
+
+	const container = new ContainerBuilder()
+		.setAccentColor(client.color.main)
+		.addSectionComponents(mainSection)
+		.addMediaGalleryComponents(
+			new MediaGalleryBuilder().addItems(
+				new MediaGalleryItemBuilder().setURL(icon || iconUrl).setDescription(`Artwork for ${track.info.title}`),
+			),
+		);
 
 	if (m) {
 		await m
 			.edit({
-				embeds: [embed],
-				components: getButtons(player, client).map((b) => {
-					b.components.forEach((c) => {
-						c.setDisabled(!player?.queue.current);
-					});
-					return b;
-				}),
+				components: [
+					container,
+					...getButtons(player).map((b) => {
+						b.components.forEach((c) => {
+							c.setDisabled(!player?.queue.current);
+						});
+						return b;
+					}),
+				],
 			})
 			.catch(() => {
 				null;
@@ -212,13 +227,16 @@ async function trackStart(
 	} else {
 		await channel
 			.send({
-				embeds: [embed],
-				components: getButtons(player, client).map((b) => {
-					b.components.forEach((c) => {
-						c.setDisabled(!player?.queue.current);
-					});
-					return b;
-				}),
+				components: [
+					container,
+					...getButtons(player).map((b) => {
+						b.components.forEach((c) => {
+							c.setDisabled(!player?.queue.current);
+						});
+						return b;
+					}),
+				],
+				flags: MessageFlags.IsComponentsV2,
 			})
 			.then((msg) => {
 				client.db.setSetup(msg.guild.id, msg.id, msg.channel.id);
@@ -247,9 +265,6 @@ async function updateSetup(client: Lavamusic, guild: Guild, locale: string): Pro
 	if (m) {
 		const player = client.manager.getPlayer(guild.id);
 		if (player?.queue.current) {
-			const iconUrl =
-				client.config.icons[player.queue.current.info.sourceName] ||
-				client.user!.displayAvatarURL({ extension: "png" });
 			const description = t(I18N.player.setupStart.description, {
 				lng: locale,
 				title: player.queue.current.info.title,
@@ -259,47 +274,57 @@ async function updateSetup(client: Lavamusic, guild: Guild, locale: string): Pro
 				requester: (player.queue.current.requester as Requester).id,
 			});
 
-			const embed = client
-				.embed()
-				.setAuthor({
-					name: t(I18N.player.setupStart.now_playing, { lng: locale }),
-					iconURL: iconUrl,
-				})
-				.setColor(client.color.main)
-				.setDescription(description)
-				.setImage(player.queue.current.info.artworkUrl);
+			const mainSection = new SectionBuilder().addTextDisplayComponents((td) =>
+				td.setContent(description),
+			);
+
+			if (player.queue.current.info.artworkUrl) {
+				mainSection.setThumbnailAccessory((th) =>
+					th
+						.setURL(player.queue.current!.info.artworkUrl!)
+						.setDescription(`Artwork for ${player.queue.current!.info.title}`),
+				);
+			}
+
+			const container = new ContainerBuilder()
+				.setAccentColor(client.color.main)
+				.addSectionComponents(mainSection);
+
 			await m
 				.edit({
-					embeds: [embed],
-					components: getButtons(player, client).map((b) => {
-						b.components.forEach((c) => {
-							c.setDisabled(!player?.queue.current);
-						});
-						return b;
-					}),
+					components: [
+						container,
+						...getButtons(player).map((b) => {
+							b.components.forEach((c) => {
+								c.setDisabled(!player?.queue.current);
+							});
+							return b;
+						}),
+					],
 				})
 				.catch(() => {
 					null;
 				});
 		} else {
-			const embed = client
-				.embed()
-				.setColor(client.color.main)
-				.setAuthor({
-					name: client.user!.username,
-					iconURL: client.user!.displayAvatarURL({ extension: "png" }),
-				})
-				.setDescription(t(I18N.player.setupStart.nothing_playing, { lng: locale }))
-				.setImage(client.config.links.img);
+			const container = new ContainerBuilder()
+				.setAccentColor(client.color.main)
+				.addSectionComponents(
+					new SectionBuilder().addTextDisplayComponents((td) =>
+						td.setContent(t(I18N.player.setupStart.nothing_playing, { lng: locale })),
+					),
+				);
+
 			await m
 				.edit({
-					embeds: [embed],
-					components: getButtons(player!, client).map((b) => {
-						b.components.forEach((c) => {
-							c.setDisabled(true);
-						});
-						return b;
-					}),
+					components: [
+						container,
+						...getButtons(player!).map((b) => {
+							b.components.forEach((c) => {
+								c.setDisabled(true);
+							});
+							return b;
+						}),
+					],
 				})
 				.catch(() => {
 					null;

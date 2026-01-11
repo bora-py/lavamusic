@@ -2,77 +2,68 @@ import {
 	ActionRowBuilder,
 	ButtonBuilder,
 	ButtonStyle,
-	type EmojiIdentifierResolvable,
 } from "discord.js";
 import type { Player } from "lavalink-client";
-import type { Lavamusic } from "../structures/index";
+import { I18N, t } from "../structures/I18n";
 
-function getButtons(player: Player, client: Lavamusic): ActionRowBuilder<ButtonBuilder>[] {
+function getButtons(player: Player): ActionRowBuilder<ButtonBuilder>[] {
 	const buttonData = [
 		{
 			customId: "PREV_BUT",
-			emoji: client.emoji.previous,
+			label: t(I18N.buttons.previous),
 			style: ButtonStyle.Secondary,
 		},
 		{
 			customId: "REWIND_BUT",
-			emoji: client.emoji.rewind,
+			label: t(I18N.buttons.rewind),
 			style: ButtonStyle.Secondary,
 		},
 		{
 			customId: "PAUSE_BUT",
-			emoji: player?.paused ? client.emoji.resume : client.emoji.pause,
+			label: player?.paused ? t(I18N.buttons.resume) : t(I18N.buttons.pause),
 			style: player?.paused ? ButtonStyle.Success : ButtonStyle.Secondary,
 		},
 		{
 			customId: "FORWARD_BUT",
-			emoji: client.emoji.forward,
+			label: t(I18N.buttons.forward),
 			style: ButtonStyle.Secondary,
 		},
 		{
 			customId: "SKIP_BUT",
-			emoji: client.emoji.skip,
+			label: t(I18N.buttons.skip),
 			style: ButtonStyle.Secondary,
 		},
 		{
 			customId: "LOW_VOL_BUT",
-			emoji: client.emoji.volume.down,
+			label: t(I18N.buttons.volume_down),
 			style: ButtonStyle.Secondary,
 		},
 		{
 			customId: "LOOP_BUT",
-			emoji: client.emoji.loop.none,
+			label: t(I18N.buttons.loop),
 			style: ButtonStyle.Secondary,
 		},
 		{
 			customId: "STOP_BUT",
-			emoji: client.emoji.stop,
+			label: t(I18N.buttons.stop),
 			style: ButtonStyle.Danger,
 		},
 		{
 			customId: "SHUFFLE_BUT",
-			emoji: client.emoji.shuffle,
+			label: t(I18N.buttons.shuffle),
 			style: ButtonStyle.Secondary,
 		},
 		{
 			customId: "HIGH_VOL_BUT",
-			emoji: client.emoji.volume.up,
+			label: t(I18N.buttons.volume_up),
 			style: ButtonStyle.Secondary,
 		},
 	];
 
-	return buttonData.reduce((rows, { customId, emoji, style }, index) => {
+	return buttonData.reduce((rows, { customId, label, style }, index) => {
 		if (index % 5 === 0) rows.push(new ActionRowBuilder<ButtonBuilder>());
 
-		let emojiFormat: EmojiIdentifierResolvable;
-		if (typeof emoji === "string" && emoji.startsWith("<:")) {
-			const match = emoji.match(/^<:\w+:(\d+)>$/);
-			emojiFormat = match ? match[1] : emoji;
-		} else {
-			emojiFormat = emoji;
-		}
-
-		const button = new ButtonBuilder().setCustomId(customId).setEmoji(emojiFormat).setStyle(style);
+		const button = new ButtonBuilder().setCustomId(customId).setLabel(label).setStyle(style);
 		rows[rows.length - 1].addComponents(button);
 		return rows;
 	}, [] as ActionRowBuilder<ButtonBuilder>[]);

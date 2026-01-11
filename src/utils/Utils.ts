@@ -2,8 +2,6 @@ import { existsSync, lstatSync, readdirSync } from "node:fs";
 import { join } from "node:path";
 import {
 	ActionRowBuilder,
-	type ActivitiesOptions,
-	ActivityType,
 	type APIEmbed,
 	type BaseMessageOptions,
 	ButtonBuilder,
@@ -52,24 +50,6 @@ export function formatTime(ms: number): string {
 	const days = Math.floor(ms / DAY_MS);
 
 	return timeFormatter.format({ days: days > 0 ? days : undefined, hours, minutes, seconds });
-}
-
-/**
- * Updates the bot's presence based on the current track
- */
-export function updateStatus(client: Lavamusic, guildId?: string): void {
-	const { user, env, manager } = client;
-	if (!user || !env.GUILD_ID || guildId !== env.GUILD_ID) return;
-
-	const player = manager.getPlayer(env.GUILD_ID);
-	const currentTrack = player?.queue?.current;
-
-	const activity: ActivitiesOptions = {
-		name: currentTrack ? `🎶 | ${currentTrack.info.title}` : env.BOT_ACTIVITY,
-		type: currentTrack ? ActivityType.Listening : env.BOT_ACTIVITY_TYPE,
-	};
-
-	user.setPresence({ activities: [activity], status: env.BOT_STATUS });
 }
 
 /**
