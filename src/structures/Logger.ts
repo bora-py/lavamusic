@@ -1,6 +1,5 @@
 import { Signale, type SignaleOptions } from "signale";
-import config from "../config";
-import { CONSOLE_LOG_COLORS, getLogBadge, LOG_LEVEL, LogBadgeStyle } from "../types/log";
+import { CONSOLE_LOG_COLORS, LOG_LEVEL } from "../types/log";
 
 /**
  * Custom Logger class extending Signale.
@@ -30,9 +29,6 @@ class Logger extends Signale {
 			const key = level.toLowerCase();
 
 			types[key] = {
-				...(!config.logBadgeStyle.match(LogBadgeStyle.default) && {
-					badge: getLogBadge(level, config.logBadgeStyle),
-				}),
 				color: CONSOLE_LOG_COLORS[level],
 				label: level,
 			};

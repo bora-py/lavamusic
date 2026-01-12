@@ -36,20 +36,6 @@ export const LOG_COLORS = {
  */
 export type EmbedLogLevel = keyof typeof LOG_COLORS;
 
-/**
- * Emoji badges.
- */
-const EMOJI_BADGES: Record<LogLevel, string> = {
-	INFO: "ℹ️",
-	WARN: "⚠️",
-	ERROR: "❌",
-	SUCCESS: "✅",
-	DEBUG: "🐛",
-	LOG: "📝",
-	PAUSE: "⏸️",
-	START: "▶️",
-	STAR: "⭐",
-};
 
 /**
  * Badge style options.
@@ -63,18 +49,6 @@ export const LogBadgeStyle = {
 
 export type LogBadgeStyle = (typeof LogBadgeStyle)[keyof typeof LogBadgeStyle];
 
-/**
- * Retrieve a badge based on style and level.
- *
- * Returns `undefined` if style is {@linkcode LogBadgeStyle.default}, allowing Signale to fallback to its internal icons.
- *
- * @param level - The log level.
- * @param style - The visual style.
- */
-export function getLogBadge(level: LogLevel, style?: LogBadgeStyle): string | undefined {
-	if (style?.match(LogBadgeStyle.emoji)) return EMOJI_BADGES[level];
-	return;
-}
 
 /**
  * Colors for console output.
