@@ -10,9 +10,7 @@ services:
       - _JAVA_OPTIONS=-Xmx2G # Limit memory usage to 2GB
       - SERVER_PORT=2333
     volumes:
-      # Mount application.yml from the same directory or use environment variables
       - ./Lavalink/application.yml:/opt/Lavalink/application.yml
-      # Persist plugins between restarts
       - ./Lavalink/plugins/:/opt/Lavalink/plugins/
     networks:
       - lavalink
@@ -54,7 +52,6 @@ services:
     image: ghcr.io/botxlab/lavamusic:main
     restart: on-failure
     environment:
-
       - NODES=[{"id":"Local Node","host":"lavalink","port":2333,"authorization":"youshallnotpass","retryAmount":5,"retryDelay":60000,"secure":"false"}]
       - DATABASE_URL=file:./lavamusic-pgdata
     volumes:
