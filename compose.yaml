@@ -1,3 +1,5 @@
+version: "3.9"
+
 services:
   # --------------------------------
   # Lavalink (Audio node)
@@ -7,7 +9,7 @@ services:
     image: ghcr.io/lavalink-devs/lavalink:latest
     restart: unless-stopped
     environment:
-      - _JAVA_OPTIONS=-Xmx2G # Limit memory usage to 2GB
+      - _JAVA_OPTIONS=-Xmx2G
       - SERVER_PORT=2333
     volumes:
       - ./Lavalink/application.yml:/opt/Lavalink/application.yml
@@ -59,13 +61,11 @@ services:
     depends_on:
       lavalink:
         condition: service_healthy
-        required: false
       postgres:
         condition: service_healthy
-        required: false
     networks:
       - lavalink
 
 networks:
   lavalink:
-    name: lavalink
+    driver: bridge
